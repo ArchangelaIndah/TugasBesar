@@ -34,13 +34,6 @@ class Menu : AppCompatActivity() {
         }
     }
 
-//    private fun replaceFragment(fragment: Fragment) {
-//        if (fragment != null) {
-//            val transaction = supportFragmentManager.beginTransaction()
-//            transaction.replace(R.id.fragment_container, fragment)
-//            transaction.commit()
-//        }
-//    }
 
     private fun setThatFragments(fragment: Fragment){
         supportFragmentManager.beginTransaction().apply {
@@ -49,13 +42,4 @@ class Menu : AppCompatActivity() {
         }
     }
 
-    private fun logout(){
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this@Menu)
-        builder.setTitle("Log Out")
-        builder.setMessage("Are you sure want to exit?")
-            .setPositiveButton("Yes"){ dialog, which ->
-                finishAndRemoveTask()
-            }
-            .show()
-    }
 }
