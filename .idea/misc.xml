@@ -3,11 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Stuido GD/TugasBesar/app/src/main/res/layout/activity_splash_screen.xml" value="0.18802083333333333" />
-        <entry key="..\:/Android Stuido GD/TugasBesar/app/src/main/res/layout/fragment_akun.xml" value="0.17831813576494426" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_menu.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_register.xml" value="0.22" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_reservasi.xml" value="0.209375" />
