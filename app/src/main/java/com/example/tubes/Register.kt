@@ -3,9 +3,11 @@ package com.example.tubes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.tubes.databinding.ActivityRegisterBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
@@ -16,33 +18,29 @@ class Register : AppCompatActivity() {
     private lateinit var inputTanggalLahir: TextInputLayout
     private lateinit var inputNomorTelepon: TextInputLayout
     private lateinit var mainLayout: ConstraintLayout
+    private lateinit var binding : ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        inputUsername = findViewById(R.id.inputLayoutUsername)
-        inputPassword = findViewById(R.id.inputLayoutPassword)
-        inputEmail = findViewById(R.id.inputLayoutEmail)
-        inputTanggalLahir = findViewById(R.id.inputLayoutTanggalLahir)
-        inputNomorTelepon = findViewById(R.id.inputLayoutNomorTelepon)
-
-        val btnDaftar: Button = findViewById(R.id.btnDaftar)
-        val btnMasuk: Button = findViewById(R.id.btnMasuk)
         var akses= true
 
-        btnMasuk.setOnClickListener{
+        binding.btnMasuk.setOnClickListener{
             val moveLogin = Intent(this@Register, MainActivity::class.java)
             startActivity(moveLogin)
         }
 
-        btnDaftar.setOnClickListener(View.OnClickListener {
-            val username: String = inputUsername.getEditText()?.getText().toString()
-            val password: String = inputPassword.getEditText()?.getText().toString()
-            val email: String = inputEmail.getEditText()?.getText().toString()
-            val tanggalLahir: String = inputTanggalLahir.getEditText()?.getText().toString()
-            val nomorTelepon: String = inputNomorTelepon.getEditText()?.getText().toString()
+        binding.btnDaftar.setOnClickListener(View.OnClickListener {
+
+            val username: String = binding.inputLayoutUsername.getEditText()?.getText().toString()
+            val password: String = binding.inputLayoutPassword.getEditText()?.getText().toString()
+            val email: String = binding.inputLayoutEmail.getEditText()?.getText().toString()
+            val tanggalLahir: String = binding.inputLayoutTanggalLahir.getEditText()?.getText().toString()
+            val nomorTelepon: String = binding.inputLayoutNomorTelepon.getEditText()?.getText().toString()
 
             val intent = Intent (this, MainActivity::class.java)
             val mBundle = Bundle()
