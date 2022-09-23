@@ -10,6 +10,5 @@ data class User (
     val nama: String,
     val email: String,
     val tglLahir: String,
-    val alamat: String,
     val noTelp: String
 )

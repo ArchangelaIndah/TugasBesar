@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.tubes.databinding.ActivityRegisterBinding
+import com.example.tubes.room.User
+import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
@@ -21,6 +23,7 @@ class Register : AppCompatActivity() {
     private lateinit var binding : ActivityRegisterBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val db by lazy { UserDB(this) }
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -46,44 +49,46 @@ class Register : AppCompatActivity() {
             val mBundle = Bundle()
 
             if(username.isEmpty()) {
-                inputUsername.setError("Username must be filled with text")
+                binding.inputLayoutUsername.setError("Username must be filled with text")
                 akses=false
             }
 
             if(password.isEmpty()) {
-                inputPassword.setError("Password must be filled with text")
+                binding.inputLayoutPassword.setError("Password must be filled with text")
                 akses=false
             }
 
             if(email.isEmpty()) {
-                inputEmail.setError("Email must be filled with text")
+                binding.inputLayoutEmail.setError("Email must be filled with text")
                 akses=false
             }
 
             if(tanggalLahir.isEmpty()) {
-                inputTanggalLahir.setError("Tanggal Lahir must be filled with text")
+                binding.inputLayoutTanggalLahir.setError("Tanggal Lahir must be filled with text")
                 akses=false
             }
 
             if(nomorTelepon.isEmpty()) {
-                inputNomorTelepon.setError("No Telepon must be filled with text")
+                binding.inputLayoutNomorTelepon.setError("No Telepon must be filled with text")
                 akses=false
             }
 
-            if(inputUsername.getEditText()?.getText()==null){
-                inputUsername.getEditText()?.setText("")
+            if(binding.inputLayoutUsername.getEditText()?.getText()==null){
+                binding.inputLayoutUsername.getEditText()?.setText("")
             }
 
-            if(inputPassword.getEditText()?.getText()==null){
-                inputPassword.getEditText()?.setText("")
+            if(binding.inputLayoutPassword.getEditText()?.getText()==null){
+                binding.inputLayoutPassword.getEditText()?.setText("")
             }
 
 
             if(akses==true){
+                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon))
+                println(db.userDao().getUsers())
                 val moveHome = Intent(this@Register, MainActivity::class.java)
 
-                mBundle.putString("Username",inputUsername.getEditText()?.getText().toString())
-                mBundle.putString("Password",inputPassword.getEditText()?.getText().toString())
+                mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())
+                mBundle.putString("Password",binding.inputLayoutPassword.getEditText()?.getText().toString())
                 moveHome.putExtra("register", mBundle)
                 startActivity(moveHome)
             }
