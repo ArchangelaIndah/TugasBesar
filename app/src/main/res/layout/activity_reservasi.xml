@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8D1C5"
     tools:context=".MainActivity">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_reservasi"
@@ -19,7 +20,7 @@
         android:id="@+id/button_create"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/brown"
+        android:backgroundTint="#B8926A"
         android:textColor="@color/white"
         android:text="Tulis Catatan"
         app:layout_constraintStart_toStartOf="parent"
