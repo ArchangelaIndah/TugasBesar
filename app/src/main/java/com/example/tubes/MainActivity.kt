@@ -1,19 +1,24 @@
 package com.example.tubes
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() {
+    val db by lazy { UserDB (this) }
     private lateinit var inputUsername: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
     private lateinit var mainLayout: ConstraintLayout
     lateinit var mBundle: Bundle
+    var sharedPreferences: SharedPreferences? = null
 
     var tUsername : String = ""
     var tPassword : String = ""
@@ -22,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
 
         setTitle("User Login")
 
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity() {
             var username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
+
             if(username.isEmpty()){
                 inputUsername.setError("Username must be filled with text")
                 checkLogin = false
@@ -64,6 +71,15 @@ class MainActivity : AppCompatActivity() {
             if(username == "admin" && password == "admin")
                 checkLogin = true
 
+            val user = db.userDao().getUser(username, password)
+            if(user != null){
+
+                checkLogin = true
+                val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
+                editor.putString("id",user.id.toString())
+                editor.apply()
+            }
+
             if(intent.getBundleExtra("register")!=null){
                 if(username== tUsername && password == tPassword)
                     checkLogin= true
@@ -71,6 +87,7 @@ class MainActivity : AppCompatActivity() {
 
             if(!checkLogin)
                 return@OnClickListener
+
 
             val moveHome = Intent(this, Menu::class.java)
             startActivity(moveHome)

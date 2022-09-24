@@ -28,15 +28,21 @@ class AkunFragment  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = this.getActivity()?.getSharedPreferences("login", Context.MODE_PRIVATE)
-        val namaTxt :TextView =  view.findViewById(R.id.inputLayoutUsername)
-        val emailTxt :TextView =  view.findViewById(R.id.inputLayoutEmail)
+        val namaTxt :TextView =  view.findViewById(R.id.nama)
+        val emailTxt :TextView =  view.findViewById(R.id.email)
         val btnEdit : Button = view.findViewById(R.id.btnEdit)
+        val btnLogout: Button = view.findViewById(R.id.btnLogout)
         val id = sharedPreferences?.getString("id", "")
+        println(id)
         namaTxt.setText(db?.userDao()?.getUser(id!!.toInt())?.nama)
         emailTxt.setText(db?.userDao()?.getUser(id!!.toInt())?.email)
 
         btnEdit.setOnClickListener(){
             (activity as Menu).setActivity(EditProfileActivity())
+        }
+
+        btnLogout.setOnClickListener {
+            activity?.finish()
         }
 
     }

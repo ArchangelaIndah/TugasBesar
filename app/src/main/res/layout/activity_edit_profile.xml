@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityEditProfile">
+    android:background="#E8D1C5"
+    tools:context=".EditProfileActivity">
 
 
     <ImageView
         android:id="@+id/ivProfile"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center_horizontal"
-        app:tint="@color/black"
-        android:src="@drawable/ic_user_24" />
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_user_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ilName"
@@ -24,11 +29,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etNama"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -39,11 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -54,11 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nomor Telepon" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -69,22 +59,58 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etTglLahir"
-            android:cursorVisible="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tanggal Lahir" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etTglLahir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:cursorVisible="false"
+        android:hint="Tanggal Lahir"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
+        tools:layout_editor_absoluteX="-16dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Nomor Telepon"
+        app:layout_constraintTop_toBottomOf="@+id/etTglLahir"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Email"
+        app:layout_constraintTop_toBottomOf="@+id/etNama"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etNama"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:hint="Nama"
+        app:layout_constraintTop_toBottomOf="@+id/ivProfile"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/btnSave"
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="670dp"
+        android:backgroundTint="#B8926A"
         android:text="Save"
-        android:backgroundTint="#B8926A"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPhoneNumber"
+        app:layout_constraintVertical_bias="0.81" />
 
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

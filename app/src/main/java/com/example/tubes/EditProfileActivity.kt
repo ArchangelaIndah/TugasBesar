@@ -65,10 +65,6 @@ class EditProfileActivity : AppCompatActivity() {
                 checkSave = false
             }
 
-            if (!Email.matches(Regex("^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"))) {
-                binding?.ilEmail?.setError("Email tidak valid")
-                checkSave = false
-            }
 
             if (BirthDate.isEmpty()) {
                 binding?.etEmail?.setError("Birth Date must be filled with text")
