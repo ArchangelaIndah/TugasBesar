@@ -83,7 +83,7 @@ class Register : AppCompatActivity() {
 
 
             if(akses==true){
-                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon))
+                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon,password))
                 println(db.userDao().getUsers())
                 val moveHome = Intent(this@Register, MainActivity::class.java)
 

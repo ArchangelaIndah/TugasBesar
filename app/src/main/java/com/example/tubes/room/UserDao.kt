@@ -12,5 +12,7 @@ interface UserDao {
     @Query("SELECT * FROM user")
     fun getUsers() : List<User>
     @Query("SELECT * FROM user WHERE id =:user_id")
-    suspend fun getUser(user_id: Int) : List<User>
+    fun getUser(user_id: Int) : User
+    @Query("SELECT * FROM user WHERE nama = :user_name and password = :user_password")
+    fun getUser(user_name: String, user_password: String) : User
 }

@@ -1,5 +1,6 @@
 package com.example.tubes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
@@ -40,6 +41,11 @@ class Menu : AppCompatActivity() {
             replace(R.id.fragment_container,fragment)
             commit()
         }
+    }
+
+    fun setActivity(activity: AppCompatActivity){
+        val move= Intent(this, activity::class.java)
+        startActivity(move)
     }
 
 }
