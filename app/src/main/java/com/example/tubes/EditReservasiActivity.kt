@@ -16,6 +16,7 @@ class EditReservasiActivity : AppCompatActivity() {
     val db by lazy { ReservasiDB(this) }
     private var reservasiId: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
+        getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_reservasi)
         setupView()
