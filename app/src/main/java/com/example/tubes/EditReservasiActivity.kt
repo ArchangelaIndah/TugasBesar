@@ -25,7 +25,6 @@ class EditReservasiActivity : AppCompatActivity() {
             reservasiId.toString(), Toast.LENGTH_SHORT).show()
     }
     fun setupView(){
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val intentType = intent.getIntExtra("intent_type", 0)
         when (intentType){
             Constant.TYPE_CREATE -> {

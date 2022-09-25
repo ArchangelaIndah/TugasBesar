@@ -17,6 +17,15 @@
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".ReservasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditReservasiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReservasiAdapter"
+            android:exported="false" />
+        <activity
             android:name=".Menu"
             android:exported="false" />
         <activity

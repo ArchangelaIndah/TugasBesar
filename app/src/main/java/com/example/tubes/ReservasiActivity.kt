@@ -22,6 +22,7 @@ class ReservasiActivity : AppCompatActivity() {
     lateinit var reservasiAdapter: ReservasiAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservasi)
         setupListener()
@@ -77,7 +78,7 @@ class ReservasiActivity : AppCompatActivity() {
     fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
             val reservasi_val = db.reservasiDao().getReservasi()
-            Log.d("MainActivity","dbResponse: $reservasi_val")
+            Log.d("ReservasiActivity","dbResponse: $reservasi_val")
             withContext(Dispatchers.Main){
                 reservasiAdapter.setData( reservasi_val )
             }

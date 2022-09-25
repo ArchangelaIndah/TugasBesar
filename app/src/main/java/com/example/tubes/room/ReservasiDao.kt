@@ -5,13 +5,13 @@ import androidx.room.*
 @Dao
 interface ReservasiDao {
     @Insert
-    fun addReservasi(reservasi: Reservasi)
+    suspend fun addReservasi(reservasi: Reservasi)
     @Update
-    fun updateReservasi(reservasi: Reservasi)
+    suspend fun updateReservasi(reservasi: Reservasi)
     @Delete
-    fun deleteReservasi(reservasi: Reservasi)
+    suspend fun deleteReservasi(reservasi: Reservasi)
     @Query("SELECT * FROM reservasi")
-    fun getReservasi(): List<Reservasi>
+    suspend fun getReservasi(): List<Reservasi>
     @Query("SELECT * FROM reservasi WHERE id =:reservasiId")
     suspend fun getReservasiById(reservasiId: Int) : List<Reservasi>
 }

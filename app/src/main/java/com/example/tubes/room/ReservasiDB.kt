@@ -8,6 +8,8 @@ import androidx.room.RoomDatabase
 @Database(
     entities = [Reservasi::class],
     version = 1 )
+
+
 abstract class ReservasiDB : RoomDatabase() {
     abstract fun reservasiDao() : ReservasiDao
     companion object {
@@ -23,7 +25,7 @@ abstract class ReservasiDB : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 ReservasiDB::class.java,
-                "user12345.db"
-            ).allowMainThreadQueries().build()
+                "reservasi12345.db"
+            ).build()
     }
 }
