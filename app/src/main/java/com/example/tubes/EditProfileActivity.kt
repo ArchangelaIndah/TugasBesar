@@ -67,7 +67,7 @@ class EditProfileActivity : AppCompatActivity() {
 
 
             if (BirthDate.isEmpty()) {
-                binding?.etEmail?.setError("Birth Date must be filled with text")
+                binding?.etTglLahir?.setError("Birth Date must be filled with text")
                 checkSave = false
             }
 
@@ -95,9 +95,9 @@ class EditProfileActivity : AppCompatActivity() {
             User(
                 id!!.toInt(),
                 binding?.etNama?.getText().toString(),
-                binding?.etPhoneNumber?.text.toString(),
                 binding?.etEmail?.text.toString(),
                 binding?.etTglLahir?.text.toString(),
+                binding?.etPhoneNumber?.text.toString(),
                 db?.userDao()?.getUser(id!!.toInt())?.password.toString()
             )
         )

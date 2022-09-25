@@ -1,29 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/tubes/app/src/main/res/layout/activity_reservasi.xml" value="0.25416666666666665" />
-        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/tubes/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.11302083333333333" />
-        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/tubes/app/src/main/res/layout/fragment_reservasi.xml" value="0.1480978260869565" />
-        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_delete.xml" value="0.1775" />
-        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_edit.xml" value="0.1775" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_profile.xml" value="0.18" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_menu.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_register.xml" value="0.22" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi.xml" value="0.20833333333333334" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_reservasi.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_sukucadang.xml" value="0.209375" />
-        <entry key="..\:/Tubes/app/src/main/res/layout/rv_item_sukucadang.xml" value="0.209375" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

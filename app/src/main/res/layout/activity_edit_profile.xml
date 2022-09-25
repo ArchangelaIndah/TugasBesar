@@ -27,7 +27,8 @@
         android:layout_width="380dp"
         android:layout_marginTop="180dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        tools:ignore="MissingConstraints">
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,7 +38,8 @@
         android:layout_width="380dp"
         android:layout_marginTop="260dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        tools:ignore="MissingConstraints">
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -47,7 +49,8 @@
         android:layout_width="380dp"
         android:layout_marginTop="340dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        tools:ignore="MissingConstraints">
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -57,7 +60,8 @@
         android:layout_width="380dp"
         android:layout_marginTop="420dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        tools:ignore="MissingConstraints">
 
     </com.google.android.material.textfield.TextInputLayout>
 
