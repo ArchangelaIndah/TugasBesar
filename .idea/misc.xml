@@ -5,11 +5,17 @@
       <map>
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/drawable/ic_baseline_looks_two_24.xml" value="0.1925" />
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_edit_profile.xml" value="0.11302083333333333" />
-        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.1" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.264" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_menu.xml" value="0.19157608695652173" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi.xml" value="0.1" />
-        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.25416666666666665" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.22857142857142856" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_splash_screen.xml" value="0.25416666666666665" />
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_reservasi.xml" value="0.2" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_sukucadang.xml" value="0.25416666666666665" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/rv_item_sukucadang.xml" value="0.25416666666666665" />
+        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/menu/bottom_home.xml" value="0.25416666666666665" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_menu.xml" value="0.209375" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_register.xml" value="0.22" />
