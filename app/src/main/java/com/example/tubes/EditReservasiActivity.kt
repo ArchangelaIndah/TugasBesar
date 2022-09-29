@@ -17,13 +17,13 @@ import kotlinx.android.synthetic.main.activity_edit_reservasi.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import com.example.tubes.databinding.ActivityMainBinding
+import com.example.tubes.databinding.ActivityEditReservasiBinding
 
 class EditReservasiActivity : AppCompatActivity() {
     val db by lazy { ReservasiDB(this) }
     private var reservasiId: Int = 0
 
-    private var binding: ActivityMainBinding? = null
+    private var binding: ActivityEditReservasiBinding? = null
     private val CHANNEL_ID_2 = "channel_notification_01"
     private val notificationId2 = 102
 
@@ -31,20 +31,17 @@ class EditReservasiActivity : AppCompatActivity() {
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityEditReservasiBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         createNotificationChannel()
 
-        setContentView(R.layout.activity_edit_reservasi)
         setupView()
         setupListener()
 
         Toast.makeText(this,
             reservasiId.toString(), Toast.LENGTH_SHORT).show()
 
-        binding!!.button_save.setOnClickListener {
-            sendNotification2()
-        }
+
     }
     fun setupView(){
         val intentType = intent.getIntExtra("intent_type", 0)
@@ -65,6 +62,8 @@ class EditReservasiActivity : AppCompatActivity() {
     }
     private fun setupListener() {
         button_save.setOnClickListener {
+
+            sendNotification2()
             CoroutineScope(Dispatchers.IO).launch {
                 db.reservasiDao().addReservasi(
                     Reservasi(0,edit_nama.text.toString(),
@@ -119,11 +118,16 @@ class EditReservasiActivity : AppCompatActivity() {
 
     private fun sendNotification2(){
         val builder = NotificationCompat.Builder(this, CHANNEL_ID_2)
-            .setSmallIcon(R.drawable.ic_baseline_looks_two_24)
-            .setContentTitle(binding?.edit_nama?.text.toString())
-            .setContentText(binding?.edit_noPlat?.text.toString())
-            .setContentText(binding?.edit_jenisKendaraan?.text.toString())
-            .setContentText(binding?.edit_keluhan?.text.toString())
+            .setSmallIcon(R.drawable.ic_baseline_build_circle_24)
+            .setStyle(
+                NotificationCompat.InboxStyle()
+                    .setBigContentTitle("Berhasil Menambahkan Data :")
+                    .addLine("Nama : "  + binding?.editNama?.text.toString())
+                    .addLine("Plat Nomor : "+ binding?.editNoPlat?.text.toString())
+                    .addLine("Jenis Kendaraan : "+ binding?.editJenisKendaraan?.text.toString())
+                    .addLine("Keluhan : " + binding?.editKeluhan?.text.toString())
+
+            )
             .setPriority(NotificationCompat.PRIORITY_LOW)
 
         with(NotificationManagerCompat.from(this)){
