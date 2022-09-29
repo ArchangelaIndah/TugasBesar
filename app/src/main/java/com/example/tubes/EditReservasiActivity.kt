@@ -24,8 +24,8 @@ class EditReservasiActivity : AppCompatActivity() {
     private var reservasiId: Int = 0
 
     private var binding: ActivityEditReservasiBinding? = null
-    private val CHANNEL_ID_2 = "channel_notification_01"
-    private val notificationId2 = 102
+    private val CHANNEL_ID_reservasi = "channel_notification_02"
+    private val notificationIdReservasi = 102
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide()
@@ -63,7 +63,7 @@ class EditReservasiActivity : AppCompatActivity() {
     private fun setupListener() {
         button_save.setOnClickListener {
 
-            sendNotification2()
+            sendNotificationReservasi()
             CoroutineScope(Dispatchers.IO).launch {
                 db.reservasiDao().addReservasi(
                     Reservasi(0,edit_nama.text.toString(),
@@ -106,22 +106,22 @@ class EditReservasiActivity : AppCompatActivity() {
             val name = "Notification Title"
             val descriptionText = "Notification Description"
 
-            val channel2 =  NotificationChannel(CHANNEL_ID_2, name, NotificationManager.IMPORTANCE_DEFAULT ).apply {
+            val channelReservasi =  NotificationChannel(CHANNEL_ID_reservasi, name, NotificationManager.IMPORTANCE_DEFAULT ).apply {
                 description = descriptionText
             }
 
             val notificationManager : NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel2)
+            notificationManager.createNotificationChannel(channelReservasi)
         }
     }
 
-    private fun sendNotification2(){
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID_2)
+    private fun sendNotificationReservasi(){
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID_reservasi)
             .setSmallIcon(R.drawable.ic_baseline_build_circle_24)
             .setStyle(
                 NotificationCompat.InboxStyle()
-                    .setBigContentTitle("Berhasil Menambahkan Data :")
+                    .setBigContentTitle("Berhasil Menambahkan Data Reservasi :")
                     .addLine("Nama : "  + binding?.editNama?.text.toString())
                     .addLine("Plat Nomor : "+ binding?.editNoPlat?.text.toString())
                     .addLine("Jenis Kendaraan : "+ binding?.editJenisKendaraan?.text.toString())
@@ -131,7 +131,7 @@ class EditReservasiActivity : AppCompatActivity() {
             .setPriority(NotificationCompat.PRIORITY_LOW)
 
         with(NotificationManagerCompat.from(this)){
-            notify(notificationId2, builder.build())
+            notify(notificationIdReservasi, builder.build())
         }
     }
 }
