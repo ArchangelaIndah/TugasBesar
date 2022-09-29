@@ -1,0 +1,1718 @@
+Index: app/src/main/java/com/example/tubes/ReservasiAdapter.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.tubes\r\n\r\nimport android.annotation.SuppressLint\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.tubes.room.Reservasi\r\nimport kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*\r\n\r\nclass ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val listener: OnAdapterListener) :\r\n    RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):\r\n            ReservasiViewHolder {\r\n        return ReservasiViewHolder(\r\n\r\n            LayoutInflater.from(parent.context).inflate(R.layout.activity_reservasi_adapter,parent, false)\r\n        )\r\n    }\r\n    override fun onBindViewHolder(holder: ReservasiViewHolder, position:\r\n    Int) {\r\n        val reservasi_val = reservasi[position]\r\n        holder.view.text_nama.text = reservasi_val.nama\r\n        holder.view.text_noPlat.text = reservasi_val.noPlat\r\n        holder.view.text_jenisKendaraan.text = reservasi_val.jenisKendaraan\r\n        holder.view.text_keluhan.text = reservasi_val.keluhan\r\n\r\n        holder.view.text_nama.setOnClickListener{\r\n            listener.onClick(reservasi_val)\r\n        }\r\n        holder.view.icon_edit.setOnClickListener {\r\n            listener.onUpdate(reservasi_val)\r\n        }\r\n        holder.view.icon_delete.setOnClickListener {\r\n            listener.onDelete(reservasi_val)\r\n        }\r\n    }\r\n    override fun getItemCount() = reservasi.size\r\n    inner class ReservasiViewHolder( val view: View) :\r\n        RecyclerView.ViewHolder(view)\r\n    @SuppressLint(\"NotifyDataSetChanged\")\r\n    fun setData(list: List<Reservasi>){\r\n        reservasi.clear()\r\n        reservasi.addAll(list)\r\n        notifyDataSetChanged()\r\n    }\r\n    interface OnAdapterListener {\r\n        fun onClick(note: Reservasi)\r\n        fun onUpdate(note: Reservasi)\r\n        fun onDelete(note: Reservasi)\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/tubes/ReservasiAdapter.kt b/app/src/main/java/com/example/tubes/ReservasiAdapter.kt
+--- a/app/src/main/java/com/example/tubes/ReservasiAdapter.kt	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/java/com/example/tubes/ReservasiAdapter.kt	(date 1664439764736)
+@@ -10,7 +10,8 @@
+ import com.example.tubes.room.Reservasi
+ import kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*
+ 
+-class ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val listener: OnAdapterListener) :
++class ReservasiAdapter (private val reservasies: ArrayList<Reservasi>, private val
++listener: OnAdapterListener) :
+     RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {
+     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+             ReservasiViewHolder {
+@@ -21,34 +22,34 @@
+     }
+     override fun onBindViewHolder(holder: ReservasiViewHolder, position:
+     Int) {
+-        val reservasi_val = reservasi[position]
+-        holder.view.text_nama.text = reservasi_val.nama
+-        holder.view.text_noPlat.text = reservasi_val.noPlat
+-        holder.view.text_jenisKendaraan.text = reservasi_val.jenisKendaraan
+-        holder.view.text_keluhan.text = reservasi_val.keluhan
++        val reservasi = reservasies[position]
++        holder.view.text_nama.text = reservasi.nama
++        holder.view.text_noPlat.text = reservasi.noPlat
++        holder.view.text_jenisKendaraan.text = reservasi.jenisKendaraan
++        holder.view.text_keluhan.text = reservasi.keluhan
+ 
+         holder.view.text_nama.setOnClickListener{
+-            listener.onClick(reservasi_val)
+-        }
+-        holder.view.icon_edit.setOnClickListener {
+-            listener.onUpdate(reservasi_val)
++            listener.onClick(reservasi)
+         }
+         holder.view.icon_delete.setOnClickListener {
+-            listener.onDelete(reservasi_val)
++            listener.onUpdate(reservasi)
+         }
++        holder.view.icon_delete.setOnClickListener {
++            listener.onDelete(reservasi)
++        }
+     }
+-    override fun getItemCount() = reservasi.size
++    override fun getItemCount() = reservasies.size
+     inner class ReservasiViewHolder( val view: View) :
+         RecyclerView.ViewHolder(view)
+     @SuppressLint("NotifyDataSetChanged")
+     fun setData(list: List<Reservasi>){
+-        reservasi.clear()
+-        reservasi.addAll(list)
++        reservasies.clear()
++        reservasies.addAll(list)
+         notifyDataSetChanged()
+     }
+     interface OnAdapterListener {
+-        fun onClick(note: Reservasi)
+-        fun onUpdate(note: Reservasi)
+-        fun onDelete(note: Reservasi)
++        fun onClick(reservasi: Reservasi)
++        fun onUpdate(reservasi: Reservasi)
++        fun onDelete(reservasi: Reservasi)
+     }
+ }
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1664439757115)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07__Changes_.xml	(date 1664439757115)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_25_09_2022_0_07_[Changes]" date="1664039250079" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 25/09/2022 0:07 [Changes]" />
++</changelist>
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07_[Changes]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07_[Changes]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1664039240727)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_25_09_2022_0_07_[Changes]/shelved.patch	(date 1664039240727)
+@@ -0,0 +1,786 @@
++Index: app/src/main/res/layout/fragment_reservasi.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#E8D1C5\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/Reservasi\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Reservasi\"\r\n        android:textSize=\"36sp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/fragment_reservasi.xml b/app/src/main/res/layout/fragment_reservasi.xml
++--- a/app/src/main/res/layout/fragment_reservasi.xml	(revision f9dff183476219f4403c146b95d7b8d7106cadb0)
+++++ b/app/src/main/res/layout/fragment_reservasi.xml	(date 1663981083939)
++@@ -15,5 +15,14 @@
++         app:layout_constraintLeft_toLeftOf="parent"
++         app:layout_constraintRight_toRightOf="parent"
++         app:layout_constraintTop_toTopOf="parent" />
+++    <Button
+++        android:id="@+id/button"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:text="Button"
+++        app:layout_constraintLeft_toLeftOf="parent"
+++        app:layout_constraintRight_toRightOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/Reservasi"
+++        />
++ 
++ </androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/java/com/example/tubes/ReservasiFragment.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.tubes\r\n\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.fragment.app.Fragment\r\n\r\nclass ReservasiFragment : Fragment() {\r\n    override fun onCreateView(\r\n        inflater: LayoutInflater, container: ViewGroup?,\r\n        savedInstanceState: Bundle?\r\n    ): View? {\r\n        // Inflate the layout for this fragment\r\n        return inflater.inflate(R.layout.fragment_reservasi, container, false)\r\n    }\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/ReservasiFragment.kt b/app/src/main/java/com/example/tubes/ReservasiFragment.kt
++--- a/app/src/main/java/com/example/tubes/ReservasiFragment.kt	(revision f9dff183476219f4403c146b95d7b8d7106cadb0)
+++++ b/app/src/main/java/com/example/tubes/ReservasiFragment.kt	(date 1663981098796)
++@@ -1,9 +1,11 @@
++ package com.example.tubes
++ 
+++import android.content.Intent
++ import android.os.Bundle
++ import android.view.LayoutInflater
++ import android.view.View
++ import android.view.ViewGroup
+++import android.widget.Button
++ import androidx.fragment.app.Fragment
++ 
++ class ReservasiFragment : Fragment() {
++@@ -14,4 +16,14 @@
++         // Inflate the layout for this fragment
++         return inflater.inflate(R.layout.fragment_reservasi, container, false)
++     }
+++
+++    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+++        super.onViewCreated(view, savedInstanceState)
+++
+++        val btnMasuk: Button = view.findViewById(R.id.button)
+++        btnMasuk.setOnClickListener(View.OnClickListener {
+++            val moveReservasi = Intent(this@ReservasiFragment.context, ReservasiActivity::class.java)
+++            startActivity(moveReservasi)
+++        })
+++    }
++ }
++\ No newline at end of file
++Index: app/src/main/res/values/colors.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
++--- a/app/src/main/res/values/colors.xml	(revision f9dff183476219f4403c146b95d7b8d7106cadb0)
+++++ b/app/src/main/res/values/colors.xml	(date 1663980863806)
++@@ -7,4 +7,5 @@
++     <color name="teal_700">#FF018786</color>
++     <color name="black">#FF000000</color>
++     <color name="white">#FFFFFFFF</color>
+++    <color name="brown">#964B00</color>
++ </resources>
++\ No newline at end of file
++Index: app/src/main/res/layout/activity_reservasi.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/activity_reservasi.xml b/app/src/main/res/layout/activity_reservasi.xml
++new file mode 100644
++--- /dev/null	(date 1663980849581)
+++++ b/app/src/main/res/layout/activity_reservasi.xml	(date 1663980849581)
++@@ -0,0 +1,30 @@
+++<?xml version="1.0" encoding="utf-8"?>
+++<androidx.constraintlayout.widget.ConstraintLayout
+++    xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
+++    android:layout_width="match_parent"
+++    android:layout_height="match_parent"
+++    tools:context=".MainActivity">
+++    <androidx.recyclerview.widget.RecyclerView
+++        android:id="@+id/list_reservasi"
+++        android:layout_width="0dp"
+++        android:layout_height="0dp"
+++        app:layout_constraintBottom_toTopOf="@+id/button_create"
+++        app:layout_constraintLeft_toLeftOf="parent"
+++        app:layout_constraintRight_toRightOf="parent"
+++        app:layout_constraintTop_toTopOf="parent"
+++        />
+++    <Button
+++        android:id="@+id/button_create"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:backgroundTint="@color/brown"
+++        android:textColor="@color/white"
+++        android:text="Tulis Catatan"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintBottom_toBottomOf="parent"
+++        android:layout_margin="10dp"
+++        />
+++</androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/res/drawable/ic_edit.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/drawable/ic_edit.xml b/app/src/main/res/drawable/ic_edit.xml
++new file mode 100644
++--- /dev/null	(date 1663978503400)
+++++ b/app/src/main/res/drawable/ic_edit.xml	(date 1663978503400)
++@@ -0,0 +1,5 @@
+++<vector android:height="24dp" android:tint="#000000"
+++    android:viewportHeight="24" android:viewportWidth="24"
+++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+++    <path android:fillColor="@android:color/white" android:pathData="M3,17.25V21h3.75L17.81,9.94l-3.75,-3.75L3,17.25zM20.71,7.04c0.39,-0.39 0.39,-1.02 0,-1.41l-2.34,-2.34c-0.39,-0.39 -1.02,-0.39 -1.41,0l-1.83,1.83 3.75,3.75 1.83,-1.83z"/>
+++</vector>
++Index: app/src/main/java/com/example/tubes/ReservasiActivity.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/ReservasiActivity.kt b/app/src/main/java/com/example/tubes/ReservasiActivity.kt
++new file mode 100644
++--- /dev/null	(date 1663981048436)
+++++ b/app/src/main/java/com/example/tubes/ReservasiActivity.kt	(date 1663981048436)
++@@ -0,0 +1,99 @@
+++package com.example.tubes
+++
+++import android.content.DialogInterface
+++import android.content.Intent
+++import androidx.appcompat.app.AppCompatActivity
+++import android.os.Bundle
+++import android.util.Log
+++import android.widget.Toast
+++import androidx.appcompat.app.AlertDialog
+++import androidx.recyclerview.widget.LinearLayoutManager
+++import com.example.tubes.room.Constant
+++import com.example.tubes.room.Reservasi
+++import com.example.tubes.room.ReservasiDB
+++import kotlinx.android.synthetic.main.activity_reservasi.*
+++import kotlinx.coroutines.CoroutineScope
+++import kotlinx.coroutines.Dispatchers
+++import kotlinx.coroutines.launch
+++import kotlinx.coroutines.withContext
+++
+++class ReservasiActivity : AppCompatActivity() {
+++    val db by lazy { ReservasiDB(this) }
+++    lateinit var reservasiAdapter: ReservasiAdapter
+++
+++    override fun onCreate(savedInstanceState: Bundle?) {
+++        super.onCreate(savedInstanceState)
+++        setContentView(R.layout.activity_reservasi)
+++        setupListener()
+++        setupRecyclerView()
+++    }
+++
+++    private fun setupRecyclerView() {
+++        reservasiAdapter = ReservasiAdapter(arrayListOf(), object :
+++            ReservasiAdapter.OnAdapterListener{
+++            override fun onClick(reservasi: Reservasi) {
+++                Toast.makeText(applicationContext, reservasi.nama,
+++                    Toast.LENGTH_SHORT).show()
+++                intentEdit(reservasi.id, Constant.TYPE_READ)
+++            }
+++            override fun onUpdate(reservasi: Reservasi) {
+++                intentEdit(reservasi.id, Constant.TYPE_UPDATE)
+++            }
+++            override fun onDelete(reservasi: Reservasi) {
+++                deleteDialog(reservasi)
+++            }
+++        })
+++        list_reservasi.apply {
+++            layoutManager = LinearLayoutManager(applicationContext)
+++            adapter = reservasiAdapter
+++        }
+++    }
+++    private fun deleteDialog(reservasi: Reservasi){
+++        val alertDialog = AlertDialog.Builder(this)
+++        alertDialog.apply {
+++            setTitle("Confirmation")
+++            setMessage("Are You Sure to delete this data From${reservasi.nama}?")
+++            setNegativeButton("Cancel", DialogInterface.OnClickListener
+++            { dialogInterface, i ->
+++                dialogInterface.dismiss()
+++            })
+++            setPositiveButton("Delete", DialogInterface.OnClickListener
+++            { dialogInterface, i ->
+++                dialogInterface.dismiss()
+++                CoroutineScope(Dispatchers.IO).launch {
+++                    db.reservasiDao().deleteReservasi(reservasi)
+++                    loadData()
+++                }
+++            })
+++        }
+++        alertDialog.show()
+++    }
+++    override fun onStart() {
+++        super.onStart()
+++        loadData()
+++    }
+++    //untuk load data yang tersimpan pada database yang sudah create data
+++
+++    fun loadData() {
+++        CoroutineScope(Dispatchers.IO).launch {
+++            val reservasi_val = db.reservasiDao().getReservasi()
+++            Log.d("MainActivity","dbResponse: $reservasi_val")
+++            withContext(Dispatchers.Main){
+++                reservasiAdapter.setData( reservasi_val )
+++            }
+++        }
+++    }
+++    fun setupListener() {
+++        button_create.setOnClickListener{
+++            intentEdit(0, Constant.TYPE_CREATE)
+++        }
+++    }
+++    //pick data dari Id yang sebagai primary key
+++    fun intentEdit(reservasiId : Int, intentType: Int){
+++        startActivity(
+++            Intent(applicationContext, EditReservasiActivity::class.java)
+++                .putExtra("intent_id", reservasiId)
+++                .putExtra("intent_type", intentType)
+++        )
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/res/layout/activity_reservasi_adapter.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/activity_reservasi_adapter.xml b/app/src/main/res/layout/activity_reservasi_adapter.xml
++new file mode 100644
++--- /dev/null	(date 1663980967261)
+++++ b/app/src/main/res/layout/activity_reservasi_adapter.xml	(date 1663980967261)
++@@ -0,0 +1,68 @@
+++<?xml version="1.0" encoding="utf-8"?>
+++<androidx.constraintlayout.widget.ConstraintLayout
+++    xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
+++    android:layout_width="match_parent"
+++    android:layout_height="wrap_content"
+++    android:padding="10dp">
+++    <TextView
+++        android:id="@+id/text_nama"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        tools:text="Nama Pemilik"
+++        android:textSize="24dp"
+++        app:layout_constraintTop_toTopOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintEnd_toStartOf="@+id/icon_edit"
+++        />
+++    <TextView
+++        android:id="@+id/text_noPlat"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        tools:text="Nomor plat"
+++        android:textSize="20dp"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/text_nama"
+++        app:layout_constraintEnd_toStartOf="@+id/icon_edit"
+++        />
+++    <TextView
+++        android:id="@+id/text_jenisKendaraan"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        tools:text="Jenis kendaraan"
+++        android:textSize="20dp"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/text_noPlat"
+++        app:layout_constraintEnd_toStartOf="@+id/icon_edit"
+++        />
+++    <TextView
+++        android:id="@+id/text_keluhan"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        tools:text="Keluhan"
+++        android:textSize="20dp"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/text_jenisKendaraan"
+++        app:layout_constraintEnd_toStartOf="@+id/icon_edit"
+++        />
+++    <ImageView
+++        android:id="@+id/icon_edit"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:src="@drawable/ic_edit"
+++        android:padding="20dp"
+++        app:layout_constraintTop_toTopOf="parent"
+++        app:layout_constraintEnd_toStartOf="@+id/icon_delete"
+++        />
+++    <ImageView
+++        android:id="@+id/icon_delete"
+++        android:layout_width="wrap_content"
+++        android:layout_height="wrap_content"
+++        android:src="@drawable/ic_delete"
+++        android:padding="20dp"
+++        app:layout_constraintTop_toTopOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        />
+++
+++</androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/res/layout/activity_edit_reservasi.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/activity_edit_reservasi.xml b/app/src/main/res/layout/activity_edit_reservasi.xml
++new file mode 100644
++--- /dev/null	(date 1663980898844)
+++++ b/app/src/main/res/layout/activity_edit_reservasi.xml	(date 1663980898844)
++@@ -0,0 +1,85 @@
+++<?xml version="1.0" encoding="utf-8"?>
+++<androidx.constraintlayout.widget.ConstraintLayout
+++    xmlns:android="http://schemas.android.com/apk/res/android"
+++    xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
+++    android:layout_width="match_parent"
+++    android:layout_height="match_parent"
+++    android:padding="20dp"
+++    tools:context=".EditReservasiActivity">
+++
+++    <TextView
+++        android:id="@+id/Judul"
+++        android:layout_width="match_parent"
+++        android:layout_height="50dp"
+++        android:layout_marginTop="10dp"
+++        android:text="RESERVASI"
+++        android:layout_marginLeft="110dp"
+++        android:textSize="30dp"
+++        app:layout_constraintTop_toTopOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"
+++        />
+++
+++    <EditText
+++        android:id="@+id/edit_nama"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:hint="Nama"
+++        android:minHeight="48dp"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/Judul"/>
+++    <EditText
+++        android:id="@+id/edit_noPlat"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:hint="No Plat"
+++        android:minHeight="48dp"
+++        app:layout_constraintTop_toBottomOf="@+id/edit_nama"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"/>
+++    <EditText
+++        android:id="@+id/edit_jenisKendaraan"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:hint="Jenis Kendaraan"
+++        android:minHeight="48dp"
+++        app:layout_constraintTop_toBottomOf="@+id/edit_noPlat"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintStart_toStartOf="parent"/>
+++    <EditText
+++        android:id="@+id/edit_keluhan"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:hint="Keluhan"
+++        android:minLines="3"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/edit_jenisKendaraan"
+++        android:layout_marginTop="10dp"
+++        android:gravity="top"
+++        />
+++    <Button
+++        android:id="@+id/button_save"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:text="SAVE"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/edit_keluhan"
+++        android:layout_marginTop="20dp"
+++        />
+++    <Button
+++        android:id="@+id/button_update"
+++        android:layout_width="0dp"
+++        android:layout_height="wrap_content"
+++        android:text="UPDATE"
+++        app:layout_constraintStart_toStartOf="parent"
+++        app:layout_constraintEnd_toEndOf="parent"
+++        app:layout_constraintTop_toBottomOf="@+id/button_save"
+++        android:layout_marginTop="20dp"
+++        />
+++
+++
+++</androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/java/com/example/tubes/room/Reservasi.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/room/Reservasi.kt b/app/src/main/java/com/example/tubes/room/Reservasi.kt
++new file mode 100644
++--- /dev/null	(date 1663980724304)
+++++ b/app/src/main/java/com/example/tubes/room/Reservasi.kt	(date 1663980724304)
++@@ -0,0 +1,13 @@
+++package com.example.tubes.room
+++
+++import androidx.room.Entity
+++import androidx.room.PrimaryKey
+++@Entity
+++class Reservasi (
+++    @PrimaryKey(autoGenerate = true)
+++    val id: Int,
+++    val nama: String,
+++    val noPlat: String,
+++    val jenisKendaraan: String,
+++    val keluhan: String
+++)
++\ No newline at end of file
++Index: app/src/main/java/com/example/tubes/room/ReservasiDao.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/room/ReservasiDao.kt b/app/src/main/java/com/example/tubes/room/ReservasiDao.kt
++new file mode 100644
++--- /dev/null	(date 1663980724331)
+++++ b/app/src/main/java/com/example/tubes/room/ReservasiDao.kt	(date 1663980724331)
++@@ -0,0 +1,17 @@
+++package com.example.tubes.room
+++
+++import androidx.room.*
+++
+++@Dao
+++interface ReservasiDao {
+++    @Insert
+++    fun addReservasi(reservasi: Reservasi)
+++    @Update
+++    fun updateReservasi(reservasi: Reservasi)
+++    @Delete
+++    fun deleteReservasi(reservasi: Reservasi)
+++    @Query("SELECT * FROM reservasi")
+++    fun getReservasi(): List<Reservasi>
+++    @Query("SELECT * FROM reservasi WHERE id =:reservasiId")
+++    suspend fun getReservasiById(reservasiId: Int) : List<Reservasi>
+++}
++\ No newline at end of file
++Index: app/src/main/java/com/example/tubes/room/ReservasiDB.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/room/ReservasiDB.kt b/app/src/main/java/com/example/tubes/room/ReservasiDB.kt
++new file mode 100644
++--- /dev/null	(date 1663980724312)
+++++ b/app/src/main/java/com/example/tubes/room/ReservasiDB.kt	(date 1663980724312)
++@@ -0,0 +1,29 @@
+++package com.example.tubes.room
+++
+++import android.content.Context
+++import androidx.room.Database
+++import androidx.room.Room
+++import androidx.room.RoomDatabase
+++
+++@Database(
+++    entities = [Reservasi::class],
+++    version = 1 )
+++abstract class ReservasiDB : RoomDatabase() {
+++    abstract fun reservasiDao() : ReservasiDao
+++    companion object {
+++        @Volatile private var instance : ReservasiDB? = null
+++        private val LOCK = Any()
+++        operator fun invoke(context: Context) = instance ?:
+++        synchronized(LOCK){
+++            instance ?: buildDatabase(context).also {
+++                instance = it
+++            }
+++        }
+++        private fun buildDatabase(context: Context) =
+++            Room.databaseBuilder(
+++                context.applicationContext,
+++                ReservasiDB::class.java,
+++                "user12345.db"
+++            ).allowMainThreadQueries().build()
+++    }
+++}
++\ No newline at end of file
++Index: app/src/main/AndroidManifest.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.example.tubes\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Tubes\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".Menu\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Register\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"false\">\r\n        </activity>\r\n\r\n        <activity\r\n            android:name=\".SplashScreen\"\r\n            android:exported=\"true\"\r\n            android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n\r\n    </application>\r\n\r\n</manifest>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
++--- a/app/src/main/AndroidManifest.xml	(revision f9dff183476219f4403c146b95d7b8d7106cadb0)
+++++ b/app/src/main/AndroidManifest.xml	(date 1663980804888)
++@@ -14,6 +14,15 @@
++         android:theme="@style/Theme.Tubes"
++         tools:targetApi="31">
++         <activity
+++            android:name=".ReservasiAdapter"
+++            android:exported="false" />
+++        <activity
+++            android:name=".ReservasiActivity"
+++            android:exported="false" />
+++        <activity
+++            android:name=".EditReservasiActivity"
+++            android:exported="false" />
+++        <activity
++             android:name=".Menu"
++             android:exported="false" />
++         <activity
++@@ -21,9 +30,7 @@
++             android:exported="false" />
++         <activity
++             android:name=".MainActivity"
++-            android:exported="false">
++-        </activity>
++-
+++            android:exported="false" />
++         <activity
++             android:name=".SplashScreen"
++             android:exported="true"
++@@ -34,7 +41,6 @@
++                 <category android:name="android.intent.category.LAUNCHER" />
++             </intent-filter>
++         </activity>
++-
++     </application>
++ 
++ </manifest>
++\ No newline at end of file
++Index: build.gradle
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id 'com.android.application' version '7.2.2' apply false\r\n    id 'com.android.library' version '7.2.2' apply false\r\n    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/build.gradle b/build.gradle
++--- a/build.gradle	(revision f9dff183476219f4403c146b95d7b8d7106cadb0)
+++++ b/build.gradle	(date 1663980723797)
++@@ -2,7 +2,7 @@
++ plugins {
++     id 'com.android.application' version '7.2.2' apply false
++     id 'com.android.library' version '7.2.2' apply false
++-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+++    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
++ }
++ 
++ task clean(type: Delete) {
++Index: .idea/misc.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_main.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_menu.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_register.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_akun.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_home.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_reservasi.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_sukucadang.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/rv_item_sukucadang.xml\" value=\"0.209375\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/misc.xml b/.idea/misc.xml
++--- a/.idea/misc.xml	(revision f9dff183476219f4403c146b95d7b8d7106cadb0)
+++++ b/.idea/misc.xml	(date 1663989577925)
++@@ -3,6 +3,10 @@
++   <component name="DesignSurface">
++     <option name="filePathToZoomLevelMap">
++       <map>
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.25416666666666665" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi.xml" value="0.1" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.25416666666666665" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_reservasi.xml" value="0.1" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_menu.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_register.xml" value="0.22" />
++Index: app/src/main/java/com/example/tubes/EditReservasiActivity.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/EditReservasiActivity.kt b/app/src/main/java/com/example/tubes/EditReservasiActivity.kt
++new file mode 100644
++--- /dev/null	(date 1663980995651)
+++++ b/app/src/main/java/com/example/tubes/EditReservasiActivity.kt	(date 1663980995651)
++@@ -0,0 +1,83 @@
+++package com.example.tubes
+++
+++import androidx.appcompat.app.AppCompatActivity
+++import android.os.Bundle
+++import android.view.View
+++import android.widget.Toast
+++import com.example.tubes.room.Constant
+++import com.example.tubes.room.Reservasi
+++import com.example.tubes.room.ReservasiDB
+++import kotlinx.android.synthetic.main.activity_edit_reservasi.*
+++import kotlinx.coroutines.CoroutineScope
+++import kotlinx.coroutines.Dispatchers
+++import kotlinx.coroutines.launch
+++
+++class EditReservasiActivity : AppCompatActivity() {
+++    val db by lazy { ReservasiDB(this) }
+++    private var reservasiId: Int = 0
+++    override fun onCreate(savedInstanceState: Bundle?) {
+++        super.onCreate(savedInstanceState)
+++        setContentView(R.layout.activity_edit_reservasi)
+++        setupView()
+++        setupListener()
+++
+++        Toast.makeText(this,
+++            reservasiId.toString(), Toast.LENGTH_SHORT).show()
+++    }
+++    fun setupView(){
+++        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+++        val intentType = intent.getIntExtra("intent_type", 0)
+++        when (intentType){
+++            Constant.TYPE_CREATE -> {
+++                button_update.visibility = View.GONE
+++            }
+++            Constant.TYPE_READ -> {
+++                button_save.visibility = View.GONE
+++                button_update.visibility = View.GONE
+++                getReservasi()
+++            }
+++            Constant.TYPE_UPDATE -> {
+++                button_save.visibility = View.GONE
+++                getReservasi()
+++            }
+++        }
+++    }
+++    private fun setupListener() {
+++        button_save.setOnClickListener {
+++            CoroutineScope(Dispatchers.IO).launch {
+++                db.reservasiDao().addReservasi(
+++                    Reservasi(0,edit_nama.text.toString(),
+++                        edit_noPlat.text.toString(),
+++                        edit_jenisKendaraan.text.toString(),
+++                        edit_keluhan.text.toString())
+++                )
+++                finish()
+++            }
+++        }
+++        button_update.setOnClickListener {
+++            CoroutineScope(Dispatchers.IO).launch {
+++                db.reservasiDao().updateReservasi(
+++                    Reservasi(reservasiId, edit_nama.text.toString(),
+++                        edit_noPlat.text.toString(),
+++                        edit_jenisKendaraan.text.toString(),
+++                        edit_keluhan.text.toString())
+++                )
+++                finish()
+++            }
+++        }
+++    }
+++    fun getReservasi() {
+++        reservasiId = intent.getIntExtra("intent_id", 0)
+++        CoroutineScope(Dispatchers.IO).launch {
+++            val reservasi_val = db.reservasiDao().getReservasiById(reservasiId)[0]
+++            edit_nama.setText(reservasi_val.nama)
+++            edit_noPlat.setText(reservasi_val.noPlat)
+++            edit_jenisKendaraan.setText(reservasi_val.jenisKendaraan)
+++            edit_keluhan.setText(reservasi_val.keluhan)
+++        }
+++    }
+++    override fun onSupportNavigateUp(): Boolean {
+++        onBackPressed()
+++        return super.onSupportNavigateUp()
+++    }
+++}
++\ No newline at end of file
++Index: .idea/.name
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/.name b/.idea/.name
++new file mode 100644
++--- /dev/null	(date 1663978460097)
+++++ b/.idea/.name	(date 1663978460097)
++@@ -0,0 +1,1 @@
+++Tubes
++\ No newline at end of file
++Index: app/src/main/res/drawable/ic_delete.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/drawable/ic_delete.xml b/app/src/main/res/drawable/ic_delete.xml
++new file mode 100644
++--- /dev/null	(date 1663978523916)
+++++ b/app/src/main/res/drawable/ic_delete.xml	(date 1663978523916)
++@@ -0,0 +1,5 @@
+++<vector android:height="24dp" android:tint="#000000"
+++    android:viewportHeight="24" android:viewportWidth="24"
+++    android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+++    <path android:fillColor="@android:color/white" android:pathData="M6,19c0,1.1 0.9,2 2,2h8c1.1,0 2,-0.9 2,-2V7H6v12zM19,4h-3.5l-1,-1h-5l-1,1H5v2h14V4z"/>
+++</vector>
++Index: app/src/main/java/com/example/tubes/ReservasiAdapter.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/ReservasiAdapter.kt b/app/src/main/java/com/example/tubes/ReservasiAdapter.kt
++new file mode 100644
++--- /dev/null	(date 1663981022282)
+++++ b/app/src/main/java/com/example/tubes/ReservasiAdapter.kt	(date 1663981022282)
++@@ -0,0 +1,54 @@
+++package com.example.tubes
+++
+++import android.annotation.SuppressLint
+++import androidx.appcompat.app.AppCompatActivity
+++import android.os.Bundle
+++import android.view.LayoutInflater
+++import android.view.View
+++import android.view.ViewGroup
+++import androidx.recyclerview.widget.RecyclerView
+++import com.example.tubes.room.Reservasi
+++import kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*
+++
+++class ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val listener: OnAdapterListener) :
+++    RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {
+++    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
+++            ReservasiViewHolder {
+++        return ReservasiViewHolder(
+++
+++            LayoutInflater.from(parent.context).inflate(R.layout.activity_reservasi_adapter,parent, false)
+++        )
+++    }
+++    override fun onBindViewHolder(holder: ReservasiViewHolder, position:
+++    Int) {
+++        val reservasi_val = reservasi[position]
+++        holder.view.text_nama.text = reservasi_val.nama
+++        holder.view.text_noPlat.text = reservasi_val.noPlat
+++        holder.view.text_jenisKendaraan.text = reservasi_val.jenisKendaraan
+++        holder.view.text_keluhan.text = reservasi_val.keluhan
+++
+++        holder.view.text_nama.setOnClickListener{
+++            listener.onClick(reservasi_val)
+++        }
+++        holder.view.icon_edit.setOnClickListener {
+++            listener.onUpdate(reservasi_val)
+++        }
+++        holder.view.icon_delete.setOnClickListener {
+++            listener.onDelete(reservasi_val)
+++        }
+++    }
+++    override fun getItemCount() = reservasi.size
+++    inner class ReservasiViewHolder( val view: View) :
+++        RecyclerView.ViewHolder(view)
+++    @SuppressLint("NotifyDataSetChanged")
+++    fun setData(list: List<Reservasi>){
+++        reservasi.clear()
+++        reservasi.addAll(list)
+++        notifyDataSetChanged()
+++    }
+++    interface OnAdapterListener {
+++        fun onClick(note: Reservasi)
+++        fun onUpdate(note: Reservasi)
+++        fun onDelete(note: Reservasi)
+++    }
+++}
++\ No newline at end of file
+Index: app/src/main/java/com/example/tubes/EditReservasiActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.tubes\r\n\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.widget.Toast\r\nimport com.example.tubes.room.Constant\r\nimport com.example.tubes.room.Reservasi\r\nimport com.example.tubes.room.ReservasiDB\r\nimport kotlinx.android.synthetic.main.activity_edit_reservasi.*\r\nimport kotlinx.coroutines.CoroutineScope\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\n\r\nclass EditReservasiActivity : AppCompatActivity() {\r\n    val db by lazy { ReservasiDB(this) }\r\n    private var reservasiId: Int = 0\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        getSupportActionBar()?.hide()\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_edit_reservasi)\r\n        setupView()\r\n        setupListener()\r\n\r\n        Toast.makeText(this,\r\n            reservasiId.toString(), Toast.LENGTH_SHORT).show()\r\n    }\r\n    fun setupView(){\r\n        val intentType = intent.getIntExtra(\"intent_type\", 0)\r\n        when (intentType){\r\n            Constant.TYPE_CREATE -> {\r\n                button_update.visibility = View.GONE\r\n            }\r\n            Constant.TYPE_READ -> {\r\n                button_save.visibility = View.GONE\r\n                button_update.visibility = View.GONE\r\n                getReservasi()\r\n            }\r\n            Constant.TYPE_UPDATE -> {\r\n                button_save.visibility = View.GONE\r\n                getReservasi()\r\n            }\r\n        }\r\n    }\r\n    private fun setupListener() {\r\n        button_save.setOnClickListener {\r\n            CoroutineScope(Dispatchers.IO).launch {\r\n                db.reservasiDao().addReservasi(\r\n                    Reservasi(0,edit_nama.text.toString(),\r\n                        edit_noPlat.text.toString(),\r\n                        edit_jenisKendaraan.text.toString(),\r\n                        edit_keluhan.text.toString())\r\n                )\r\n                finish()\r\n            }\r\n        }\r\n        button_update.setOnClickListener {\r\n            CoroutineScope(Dispatchers.IO).launch {\r\n                db.reservasiDao().updateReservasi(\r\n                    Reservasi(reservasiId, edit_nama.text.toString(),\r\n                        edit_noPlat.text.toString(),\r\n                        edit_jenisKendaraan.text.toString(),\r\n                        edit_keluhan.text.toString())\r\n                )\r\n                finish()\r\n            }\r\n        }\r\n    }\r\n    fun getReservasi() {\r\n        reservasiId = intent.getIntExtra(\"intent_id\", 0)\r\n        CoroutineScope(Dispatchers.IO).launch {\r\n            val reservasi_val = db.reservasiDao().getReservasiById(reservasiId)[0]\r\n            edit_nama.setText(reservasi_val.nama)\r\n            edit_noPlat.setText(reservasi_val.noPlat)\r\n            edit_jenisKendaraan.setText(reservasi_val.jenisKendaraan)\r\n            edit_keluhan.setText(reservasi_val.keluhan)\r\n        }\r\n    }\r\n    override fun onSupportNavigateUp(): Boolean {\r\n        onBackPressed()\r\n        return super.onSupportNavigateUp()\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/tubes/EditReservasiActivity.kt b/app/src/main/java/com/example/tubes/EditReservasiActivity.kt
+--- a/app/src/main/java/com/example/tubes/EditReservasiActivity.kt	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/java/com/example/tubes/EditReservasiActivity.kt	(date 1664439764747)
+@@ -57,7 +57,7 @@
+         button_update.setOnClickListener {
+             CoroutineScope(Dispatchers.IO).launch {
+                 db.reservasiDao().updateReservasi(
+-                    Reservasi(reservasiId, edit_nama.text.toString(),
++                    Reservasi(reservasiId,edit_nama.text.toString(),
+                         edit_noPlat.text.toString(),
+                         edit_jenisKendaraan.text.toString(),
+                         edit_keluhan.text.toString())
+@@ -69,11 +69,11 @@
+     fun getReservasi() {
+         reservasiId = intent.getIntExtra("intent_id", 0)
+         CoroutineScope(Dispatchers.IO).launch {
+-            val reservasi_val = db.reservasiDao().getReservasiById(reservasiId)[0]
+-            edit_nama.setText(reservasi_val.nama)
+-            edit_noPlat.setText(reservasi_val.noPlat)
+-            edit_jenisKendaraan.setText(reservasi_val.jenisKendaraan)
+-            edit_keluhan.setText(reservasi_val.keluhan)
++            val reservasies = db.reservasiDao().getReservasiById(reservasiId)[0]
++            edit_nama.setText(reservasies.nama)
++            edit_noPlat.setText(reservasies.noPlat)
++            edit_jenisKendaraan.setText(reservasies.jenisKendaraan)
++            edit_keluhan.setText(reservasies.keluhan)
+         }
+     }
+     override fun onSupportNavigateUp(): Boolean {
+Index: app/src/main/res/layout/fragment_reservasi.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#E8D1C5\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/Reservasi\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Reservasi\"\r\n        android:textSize=\"36sp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n    <Button\r\n        android:id=\"@+id/button\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Button\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/Reservasi\"\r\n        />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_reservasi.xml b/app/src/main/res/layout/fragment_reservasi.xml
+--- a/app/src/main/res/layout/fragment_reservasi.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/res/layout/fragment_reservasi.xml	(date 1664439764759)
+@@ -1,6 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
++    xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:background="#E8D1C5">
+@@ -15,12 +16,12 @@
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toRightOf="parent"
+         app:layout_constraintTop_toTopOf="parent" />
++
+     <Button
+         android:id="@+id/button"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Button"
+-        android:backgroundTint="#B8926A"
+         app:layout_constraintLeft_toLeftOf="parent"
+         app:layout_constraintRight_toRightOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/Reservasi"
+Index: app/google-services.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/google-services.json b/app/google-services.json
+new file mode 100644
+--- /dev/null	(date 1664440476727)
++++ b/app/google-services.json	(date 1664440476727)
+@@ -0,0 +1,39 @@
++{
++  "project_info": {
++    "project_number": "834965810558",
++    "project_id": "tubes-97da9",
++    "storage_bucket": "tubes-97da9.appspot.com"
++  },
++  "client": [
++    {
++      "client_info": {
++        "mobilesdk_app_id": "1:834965810558:android:3d81e0101a86e3e1ca572f",
++        "android_client_info": {
++          "package_name": "com.example.tubes"
++        }
++      },
++      "oauth_client": [
++        {
++          "client_id": "834965810558-pe1vkn343meirv1m81ahifqdma1n3jfb.apps.googleusercontent.com",
++          "client_type": 3
++        }
++      ],
++      "api_key": [
++        {
++          "current_key": "AIzaSyDv7TuWWpcRUQnU7mqJLQtjOeiZuwn_Evo"
++        }
++      ],
++      "services": {
++        "appinvite_service": {
++          "other_platform_oauth_client": [
++            {
++              "client_id": "834965810558-pe1vkn343meirv1m81ahifqdma1n3jfb.apps.googleusercontent.com",
++              "client_type": 3
++            }
++          ]
++        }
++      }
++    }
++  ],
++  "configuration_version": "1"
++}
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_reservasi.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#E8D1C5\"\r\n    tools:context=\".MainActivity\">\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/list_reservasi\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/button_create\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        />\r\n    <Button\r\n        android:id=\"@+id/button_create\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        android:textColor=\"@color/white\"\r\n        android:text=\"Tulis Catatan\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        android:layout_margin=\"10dp\"\r\n        />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_reservasi.xml b/app/src/main/res/layout/activity_reservasi.xml
+--- a/app/src/main/res/layout/activity_reservasi.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/res/layout/activity_reservasi.xml	(date 1664439764767)
+@@ -5,7 +5,6 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="#E8D1C5"
+     tools:context=".MainActivity">
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/list_reservasi"
+@@ -20,7 +19,7 @@
+         android:id="@+id/button_create"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+-        android:backgroundTint="#B8926A"
++        android:backgroundTint="@color/brown"
+         android:textColor="@color/white"
+         android:text="Tulis Catatan"
+         app:layout_constraintStart_toStartOf="parent"
+@@ -28,4 +27,5 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+         android:layout_margin="10dp"
+         />
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>plugins {\r\n    id 'com.android.application'\r\n    id 'org.jetbrains.kotlin.android'\r\n     id 'kotlin-android-extensions'\r\n}\r\napply plugin: 'kotlin-kapt'\r\nandroid {\r\n    compileSdk 32\r\n\r\n    defaultConfig {\r\n        applicationId \"com.example.tubes\"\r\n        minSdk 26\r\n        targetSdk 32\r\n        versionCode 1\r\n        versionName \"1.0\"\r\n\r\n        testInstrumentationRunner \"androidx.test.runner.AndroidJUnitRunner\"\r\n    }\r\n\r\n    buildFeatures{\r\n        viewBinding true\r\n    }\r\n\r\n    buildTypes {\r\n        release {\r\n            minifyEnabled false\r\n            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'\r\n        }\r\n    }\r\n    compileOptions {\r\n        sourceCompatibility JavaVersion.VERSION_1_8\r\n        targetCompatibility JavaVersion.VERSION_1_8\r\n    }\r\n    kotlinOptions {\r\n        jvmTarget = '1.8'\r\n    }\r\n}\r\n\r\ndependencies {\r\n    // Room\r\n    def room_version = \"2.4.3\"\r\n    implementation \"androidx.room:room-runtime:$room_version\"\r\n    kapt \"androidx.room:room-compiler:$room_version\"\r\n\r\n    // Coroutines\r\n    def coroutines_version = \"1.3.9\"\r\n    implementation \"androidx.room:room-ktx:$room_version\"\r\n    implementation \"org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version\"\r\n\r\n    implementation 'androidx.core:core-ktx:1.7.0'\r\n    implementation 'androidx.appcompat:appcompat:1.5.0'\r\n    implementation 'com.google.android.material:material:1.6.1'\r\n    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'\r\n    // implementation 'androidx.recyclerview:recyclerview:1.2.1'\r\n//    implementation 'com.google.android.ads:mediation-test-suite:2.0.0'\r\n    testImplementation 'junit:junit:4.13.2'\r\n    androidTestImplementation 'androidx.test.ext:junit:1.1.3'\r\n    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/build.gradle b/app/build.gradle
+--- a/app/build.gradle	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/build.gradle	(date 1664441769189)
+@@ -2,6 +2,7 @@
+     id 'com.android.application'
+     id 'org.jetbrains.kotlin.android'
+      id 'kotlin-android-extensions'
++    id 'com.google.gms.google-services'
+ }
+ apply plugin: 'kotlin-kapt'
+ android {
+@@ -34,9 +35,15 @@
+     kotlinOptions {
+         jvmTarget = '1.8'
+     }
++
++    viewBinding{
++        enabled = true
++    }
+ }
+ 
+ dependencies {
++    implementation 'com.google.firebase:firebase-messaging-ktx:23.0.8'
++
+     // Room
+     def room_version = "2.4.3"
+     implementation "androidx.room:room-runtime:$room_version"
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22_[Changes]/shelved.patch
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22_[Changes]/shelved.patch
+new file mode 100644
+--- /dev/null	(date 1664439761490)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22_[Changes]/shelved.patch	(date 1664439761490)
+@@ -0,0 +1,414 @@
++Index: app/src/main/java/com/example/tubes/ReservasiAdapter.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.tubes\r\n\r\nimport android.annotation.SuppressLint\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.LayoutInflater\r\nimport android.view.View\r\nimport android.view.ViewGroup\r\nimport androidx.recyclerview.widget.RecyclerView\r\nimport com.example.tubes.room.Reservasi\r\nimport kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*\r\n\r\nclass ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val listener: OnAdapterListener) :\r\n    RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {\r\n    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):\r\n            ReservasiViewHolder {\r\n        return ReservasiViewHolder(\r\n\r\n            LayoutInflater.from(parent.context).inflate(R.layout.activity_reservasi_adapter,parent, false)\r\n        )\r\n    }\r\n    override fun onBindViewHolder(holder: ReservasiViewHolder, position:\r\n    Int) {\r\n        val reservasi_val = reservasi[position]\r\n        holder.view.text_nama.text = reservasi_val.nama\r\n        holder.view.text_noPlat.text = reservasi_val.noPlat\r\n        holder.view.text_jenisKendaraan.text = reservasi_val.jenisKendaraan\r\n        holder.view.text_keluhan.text = reservasi_val.keluhan\r\n\r\n        holder.view.text_nama.setOnClickListener{\r\n            listener.onClick(reservasi_val)\r\n        }\r\n        holder.view.icon_edit.setOnClickListener {\r\n            listener.onUpdate(reservasi_val)\r\n        }\r\n        holder.view.icon_delete.setOnClickListener {\r\n            listener.onDelete(reservasi_val)\r\n        }\r\n    }\r\n    override fun getItemCount() = reservasi.size\r\n    inner class ReservasiViewHolder( val view: View) :\r\n        RecyclerView.ViewHolder(view)\r\n    @SuppressLint(\"NotifyDataSetChanged\")\r\n    fun setData(list: List<Reservasi>){\r\n        reservasi.clear()\r\n        reservasi.addAll(list)\r\n        notifyDataSetChanged()\r\n    }\r\n    interface OnAdapterListener {\r\n        fun onClick(note: Reservasi)\r\n        fun onUpdate(note: Reservasi)\r\n        fun onDelete(note: Reservasi)\r\n    }\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/ReservasiAdapter.kt b/app/src/main/java/com/example/tubes/ReservasiAdapter.kt
++--- a/app/src/main/java/com/example/tubes/ReservasiAdapter.kt	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/java/com/example/tubes/ReservasiAdapter.kt	(date 1664074717121)
++@@ -10,7 +10,8 @@
++ import com.example.tubes.room.Reservasi
++ import kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*
++ 
++-class ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val listener: OnAdapterListener) :
+++class ReservasiAdapter (private val reservasies: ArrayList<Reservasi>, private val
+++listener: OnAdapterListener) :
++     RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {
++     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
++             ReservasiViewHolder {
++@@ -21,34 +22,34 @@
++     }
++     override fun onBindViewHolder(holder: ReservasiViewHolder, position:
++     Int) {
++-        val reservasi_val = reservasi[position]
++-        holder.view.text_nama.text = reservasi_val.nama
++-        holder.view.text_noPlat.text = reservasi_val.noPlat
++-        holder.view.text_jenisKendaraan.text = reservasi_val.jenisKendaraan
++-        holder.view.text_keluhan.text = reservasi_val.keluhan
+++        val reservasi = reservasies[position]
+++        holder.view.text_nama.text = reservasi.nama
+++        holder.view.text_noPlat.text = reservasi.noPlat
+++        holder.view.text_jenisKendaraan.text = reservasi.jenisKendaraan
+++        holder.view.text_keluhan.text = reservasi.keluhan
++ 
++         holder.view.text_nama.setOnClickListener{
++-            listener.onClick(reservasi_val)
++-        }
++-        holder.view.icon_edit.setOnClickListener {
++-            listener.onUpdate(reservasi_val)
+++            listener.onClick(reservasi)
++         }
++         holder.view.icon_delete.setOnClickListener {
++-            listener.onDelete(reservasi_val)
+++            listener.onUpdate(reservasi)
++         }
+++        holder.view.icon_delete.setOnClickListener {
+++            listener.onDelete(reservasi)
+++        }
++     }
++-    override fun getItemCount() = reservasi.size
+++    override fun getItemCount() = reservasies.size
++     inner class ReservasiViewHolder( val view: View) :
++         RecyclerView.ViewHolder(view)
++     @SuppressLint("NotifyDataSetChanged")
++     fun setData(list: List<Reservasi>){
++-        reservasi.clear()
++-        reservasi.addAll(list)
+++        reservasies.clear()
+++        reservasies.addAll(list)
++         notifyDataSetChanged()
++     }
++     interface OnAdapterListener {
++-        fun onClick(note: Reservasi)
++-        fun onUpdate(note: Reservasi)
++-        fun onDelete(note: Reservasi)
+++        fun onClick(reservasi: Reservasi)
+++        fun onUpdate(reservasi: Reservasi)
+++        fun onDelete(reservasi: Reservasi)
++     }
++ }
++\ No newline at end of file
++Index: app/src/main/java/com/example/tubes/EditReservasiActivity.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.tubes\r\n\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.view.View\r\nimport android.widget.Toast\r\nimport com.example.tubes.room.Constant\r\nimport com.example.tubes.room.Reservasi\r\nimport com.example.tubes.room.ReservasiDB\r\nimport kotlinx.android.synthetic.main.activity_edit_reservasi.*\r\nimport kotlinx.coroutines.CoroutineScope\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\n\r\nclass EditReservasiActivity : AppCompatActivity() {\r\n    val db by lazy { ReservasiDB(this) }\r\n    private var reservasiId: Int = 0\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_edit_reservasi)\r\n        setupView()\r\n        setupListener()\r\n\r\n        Toast.makeText(this,\r\n            reservasiId.toString(), Toast.LENGTH_SHORT).show()\r\n    }\r\n    fun setupView(){\r\n        supportActionBar!!.setDisplayHomeAsUpEnabled(true)\r\n        val intentType = intent.getIntExtra(\"intent_type\", 0)\r\n        when (intentType){\r\n            Constant.TYPE_CREATE -> {\r\n                button_update.visibility = View.GONE\r\n            }\r\n            Constant.TYPE_READ -> {\r\n                button_save.visibility = View.GONE\r\n                button_update.visibility = View.GONE\r\n                getReservasi()\r\n            }\r\n            Constant.TYPE_UPDATE -> {\r\n                button_save.visibility = View.GONE\r\n                getReservasi()\r\n            }\r\n        }\r\n    }\r\n    private fun setupListener() {\r\n        button_save.setOnClickListener {\r\n            CoroutineScope(Dispatchers.IO).launch {\r\n                db.reservasiDao().addReservasi(\r\n                    Reservasi(0,edit_nama.text.toString(),\r\n                        edit_noPlat.text.toString(),\r\n                        edit_jenisKendaraan.text.toString(),\r\n                        edit_keluhan.text.toString())\r\n                )\r\n                finish()\r\n            }\r\n        }\r\n        button_update.setOnClickListener {\r\n            CoroutineScope(Dispatchers.IO).launch {\r\n                db.reservasiDao().updateReservasi(\r\n                    Reservasi(reservasiId, edit_nama.text.toString(),\r\n                        edit_noPlat.text.toString(),\r\n                        edit_jenisKendaraan.text.toString(),\r\n                        edit_keluhan.text.toString())\r\n                )\r\n                finish()\r\n            }\r\n        }\r\n    }\r\n    fun getReservasi() {\r\n        reservasiId = intent.getIntExtra(\"intent_id\", 0)\r\n        CoroutineScope(Dispatchers.IO).launch {\r\n            val reservasi_val = db.reservasiDao().getReservasiById(reservasiId)[0]\r\n            edit_nama.setText(reservasi_val.nama)\r\n            edit_noPlat.setText(reservasi_val.noPlat)\r\n            edit_jenisKendaraan.setText(reservasi_val.jenisKendaraan)\r\n            edit_keluhan.setText(reservasi_val.keluhan)\r\n        }\r\n    }\r\n    override fun onSupportNavigateUp(): Boolean {\r\n        onBackPressed()\r\n        return super.onSupportNavigateUp()\r\n    }\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/EditReservasiActivity.kt b/app/src/main/java/com/example/tubes/EditReservasiActivity.kt
++--- a/app/src/main/java/com/example/tubes/EditReservasiActivity.kt	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/java/com/example/tubes/EditReservasiActivity.kt	(date 1664075462391)
++@@ -57,7 +57,7 @@
++         button_update.setOnClickListener {
++             CoroutineScope(Dispatchers.IO).launch {
++                 db.reservasiDao().updateReservasi(
++-                    Reservasi(reservasiId, edit_nama.text.toString(),
+++                    Reservasi(reservasiId,edit_nama.text.toString(),
++                         edit_noPlat.text.toString(),
++                         edit_jenisKendaraan.text.toString(),
++                         edit_keluhan.text.toString())
++@@ -69,11 +69,11 @@
++     fun getReservasi() {
++         reservasiId = intent.getIntExtra("intent_id", 0)
++         CoroutineScope(Dispatchers.IO).launch {
++-            val reservasi_val = db.reservasiDao().getReservasiById(reservasiId)[0]
++-            edit_nama.setText(reservasi_val.nama)
++-            edit_noPlat.setText(reservasi_val.noPlat)
++-            edit_jenisKendaraan.setText(reservasi_val.jenisKendaraan)
++-            edit_keluhan.setText(reservasi_val.keluhan)
+++            val reservasies = db.reservasiDao().getReservasiById(reservasiId)[0]
+++            edit_nama.setText(reservasies.nama)
+++            edit_noPlat.setText(reservasies.noPlat)
+++            edit_jenisKendaraan.setText(reservasies.jenisKendaraan)
+++            edit_keluhan.setText(reservasies.keluhan)
++         }
++     }
++     override fun onSupportNavigateUp(): Boolean {
++Index: app/src/main/res/layout/fragment_reservasi.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#E8D1C5\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/Reservasi\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Reservasi\"\r\n        android:textSize=\"36sp\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\" />\r\n    <Button\r\n        android:id=\"@+id/button\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"Button\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/Reservasi\"\r\n        />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/fragment_reservasi.xml b/app/src/main/res/layout/fragment_reservasi.xml
++--- a/app/src/main/res/layout/fragment_reservasi.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/res/layout/fragment_reservasi.xml	(date 1664039306370)
++@@ -1,6 +1,7 @@
++ <?xml version="1.0" encoding="utf-8"?>
++ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
++     xmlns:app="http://schemas.android.com/apk/res-auto"
+++    xmlns:tools="http://schemas.android.com/tools"
++     android:layout_width="match_parent"
++     android:layout_height="match_parent"
++     android:background="#E8D1C5">
++@@ -15,12 +16,12 @@
++         app:layout_constraintLeft_toLeftOf="parent"
++         app:layout_constraintRight_toRightOf="parent"
++         app:layout_constraintTop_toTopOf="parent" />
+++
++     <Button
++         android:id="@+id/button"
++         android:layout_width="wrap_content"
++         android:layout_height="wrap_content"
++         android:text="Button"
++-        android:backgroundTint="#B8926A"
++         app:layout_constraintLeft_toLeftOf="parent"
++         app:layout_constraintRight_toRightOf="parent"
++         app:layout_constraintTop_toBottomOf="@+id/Reservasi"
++Index: app/src/main/res/layout/activity_reservasi.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:background=\"#E8D1C5\"\r\n    tools:context=\".MainActivity\">\r\n    <androidx.recyclerview.widget.RecyclerView\r\n        android:id=\"@+id/list_reservasi\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintBottom_toTopOf=\"@+id/button_create\"\r\n        app:layout_constraintLeft_toLeftOf=\"parent\"\r\n        app:layout_constraintRight_toRightOf=\"parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        />\r\n    <Button\r\n        android:id=\"@+id/button_create\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        android:textColor=\"@color/white\"\r\n        android:text=\"Tulis Catatan\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        android:layout_margin=\"10dp\"\r\n        />\r\n</androidx.constraintlayout.widget.ConstraintLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/activity_reservasi.xml b/app/src/main/res/layout/activity_reservasi.xml
++--- a/app/src/main/res/layout/activity_reservasi.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/res/layout/activity_reservasi.xml	(date 1664075381816)
++@@ -5,7 +5,6 @@
++     xmlns:tools="http://schemas.android.com/tools"
++     android:layout_width="match_parent"
++     android:layout_height="match_parent"
++-    android:background="#E8D1C5"
++     tools:context=".MainActivity">
++     <androidx.recyclerview.widget.RecyclerView
++         android:id="@+id/list_reservasi"
++@@ -20,7 +19,7 @@
++         android:id="@+id/button_create"
++         android:layout_width="0dp"
++         android:layout_height="wrap_content"
++-        android:backgroundTint="#B8926A"
+++        android:backgroundTint="@color/brown"
++         android:textColor="@color/white"
++         android:text="Tulis Catatan"
++         app:layout_constraintStart_toStartOf="parent"
++@@ -28,4 +27,5 @@
++         app:layout_constraintBottom_toBottomOf="parent"
++         android:layout_margin="10dp"
++         />
+++
++ </androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/java/com/example/tubes/ReservasiActivity.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.tubes\r\n\r\nimport android.content.DialogInterface\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AlertDialog\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport com.example.tubes.room.Constant\r\nimport com.example.tubes.room.Reservasi\r\nimport com.example.tubes.room.ReservasiDB\r\nimport kotlinx.android.synthetic.main.activity_reservasi.*\r\nimport kotlinx.coroutines.CoroutineScope\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.withContext\r\n\r\nclass ReservasiActivity : AppCompatActivity() {\r\n    val db by lazy { ReservasiDB(this) }\r\n    lateinit var reservasiAdapter: ReservasiAdapter\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_reservasi)\r\n        setupListener()\r\n        setupRecyclerView()\r\n    }\r\n\r\n    private fun setupRecyclerView() {\r\n        reservasiAdapter = ReservasiAdapter(arrayListOf(), object :\r\n            ReservasiAdapter.OnAdapterListener{\r\n            override fun onClick(reservasi: Reservasi) {\r\n                Toast.makeText(applicationContext, reservasi.nama,\r\n                    Toast.LENGTH_SHORT).show()\r\n                intentEdit(reservasi.id, Constant.TYPE_READ)\r\n            }\r\n            override fun onUpdate(reservasi: Reservasi) {\r\n                intentEdit(reservasi.id, Constant.TYPE_UPDATE)\r\n            }\r\n            override fun onDelete(reservasi: Reservasi) {\r\n                deleteDialog(reservasi)\r\n            }\r\n        })\r\n        list_reservasi.apply {\r\n            layoutManager = LinearLayoutManager(applicationContext)\r\n            adapter = reservasiAdapter\r\n        }\r\n    }\r\n    private fun deleteDialog(reservasi: Reservasi){\r\n        val alertDialog = AlertDialog.Builder(this)\r\n        alertDialog.apply {\r\n            setTitle(\"Confirmation\")\r\n            setMessage(\"Are You Sure to delete this data From${reservasi.nama}?\")\r\n            setNegativeButton(\"Cancel\", DialogInterface.OnClickListener\r\n            { dialogInterface, i ->\r\n                dialogInterface.dismiss()\r\n            })\r\n            setPositiveButton(\"Delete\", DialogInterface.OnClickListener\r\n            { dialogInterface, i ->\r\n                dialogInterface.dismiss()\r\n                CoroutineScope(Dispatchers.IO).launch {\r\n                    db.reservasiDao().deleteReservasi(reservasi)\r\n                    loadData()\r\n                }\r\n            })\r\n        }\r\n        alertDialog.show()\r\n    }\r\n    override fun onStart() {\r\n        super.onStart()\r\n        loadData()\r\n    }\r\n    //untuk load data yang tersimpan pada database yang sudah create data\r\n\r\n    fun loadData() {\r\n        CoroutineScope(Dispatchers.IO).launch {\r\n            val reservasi_val = db.reservasiDao().getReservasi()\r\n            Log.d(\"MainActivity\",\"dbResponse: $reservasi_val\")\r\n            withContext(Dispatchers.Main){\r\n                reservasiAdapter.setData( reservasi_val )\r\n            }\r\n        }\r\n    }\r\n    fun setupListener() {\r\n        button_create.setOnClickListener{\r\n            intentEdit(0, Constant.TYPE_CREATE)\r\n        }\r\n    }\r\n    //pick data dari Id yang sebagai primary key\r\n    fun intentEdit(reservasiId : Int, intentType: Int){\r\n        startActivity(\r\n            Intent(applicationContext, EditReservasiActivity::class.java)\r\n                .putExtra(\"intent_id\", reservasiId)\r\n                .putExtra(\"intent_type\", intentType)\r\n        )\r\n    }\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/ReservasiActivity.kt b/app/src/main/java/com/example/tubes/ReservasiActivity.kt
++--- a/app/src/main/java/com/example/tubes/ReservasiActivity.kt	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/java/com/example/tubes/ReservasiActivity.kt	(date 1664086355750)
++@@ -20,13 +20,16 @@
++ class ReservasiActivity : AppCompatActivity() {
++     val db by lazy { ReservasiDB(this) }
++     lateinit var reservasiAdapter: ReservasiAdapter
++-
++     override fun onCreate(savedInstanceState: Bundle?) {
++         super.onCreate(savedInstanceState)
++-        setContentView(R.layout.activity_reservasi)
+++        setContentView(R.layout.activity_main)
++         setupListener()
++         setupRecyclerView()
++     }
+++    //berfungsi untuk membuat sebuah note status pada button yang ditekan untuk CRUD yang dilaksanakan
+++    //ini berhubungan dengan Constant status pada room
+++    //cara panggil id dengan memanggil fungsi intetnEdit.
+++    //jika pada fungsi interface adapterListener berubah, maka object akan memerah error karena penambahan fungsi.
++ 
++     private fun setupRecyclerView() {
++         reservasiAdapter = ReservasiAdapter(arrayListOf(), object :
++@@ -76,16 +79,16 @@
++ 
++     fun loadData() {
++         CoroutineScope(Dispatchers.IO).launch {
++-            val reservasi_val = db.reservasiDao().getReservasi()
++-            Log.d("MainActivity","dbResponse: $reservasi_val")
+++            val reservasies = db.reservasiDao().getReservasi()
+++            Log.d("ReservasiActivity","dbResponse: $reservasies")
++             withContext(Dispatchers.Main){
++-                reservasiAdapter.setData( reservasi_val )
+++                reservasiAdapter.setData( reservasies )
++             }
++         }
++     }
++     fun setupListener() {
++         button_create.setOnClickListener{
++-            intentEdit(0, Constant.TYPE_CREATE)
+++            intentEdit(0,Constant.TYPE_CREATE)
++         }
++     }
++     //pick data dari Id yang sebagai primary key
++Index: app/src/main/java/com/example/tubes/room/Reservasi.kt
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>package com.example.tubes.room\r\n\r\nimport androidx.room.Entity\r\nimport androidx.room.PrimaryKey\r\n@Entity\r\nclass Reservasi (\r\n    @PrimaryKey(autoGenerate = true)\r\n    val id: Int,\r\n    val nama: String,\r\n    val noPlat: String,\r\n    val jenisKendaraan: String,\r\n    val keluhan: String\r\n)
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/java/com/example/tubes/room/Reservasi.kt b/app/src/main/java/com/example/tubes/room/Reservasi.kt
++--- a/app/src/main/java/com/example/tubes/room/Reservasi.kt	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/java/com/example/tubes/room/Reservasi.kt	(date 1664086379426)
++@@ -3,7 +3,7 @@
++ import androidx.room.Entity
++ import androidx.room.PrimaryKey
++ @Entity
++-class Reservasi (
+++data class Reservasi (
++     @PrimaryKey(autoGenerate = true)
++     val id: Int,
++     val nama: String,
++Index: app/src/main/res/layout/activity_reservasi_adapter.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:background=\"#E8D1C5\"\r\n    android:padding=\"10dp\">\r\n    <TextView\r\n        android:id=\"@+id/text_nama\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Nama Pemilik\"\r\n        android:textSize=\"24dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <TextView\r\n        android:id=\"@+id/text_noPlat\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Nomor plat\"\r\n        android:textSize=\"20dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/text_nama\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <TextView\r\n        android:id=\"@+id/text_jenisKendaraan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Jenis kendaraan\"\r\n        android:textSize=\"20dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/text_noPlat\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <TextView\r\n        android:id=\"@+id/text_keluhan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Keluhan\"\r\n        android:textSize=\"20dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/text_jenisKendaraan\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <ImageView\r\n        android:id=\"@+id/icon_edit\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:src=\"@drawable/ic_edit\"\r\n        android:padding=\"20dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_delete\"\r\n        />\r\n    <ImageView\r\n        android:id=\"@+id/icon_delete\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:src=\"@drawable/ic_delete\"\r\n        android:padding=\"20dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/activity_reservasi_adapter.xml b/app/src/main/res/layout/activity_reservasi_adapter.xml
++--- a/app/src/main/res/layout/activity_reservasi_adapter.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/res/layout/activity_reservasi_adapter.xml	(date 1664074717127)
++@@ -5,7 +5,6 @@
++     xmlns:tools="http://schemas.android.com/tools"
++     android:layout_width="match_parent"
++     android:layout_height="wrap_content"
++-    android:background="#E8D1C5"
++     android:padding="10dp">
++     <TextView
++         android:id="@+id/text_nama"
++Index: app/src/main/res/layout/activity_edit_reservasi.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:padding=\"20dp\"\r\n    android:background=\"#E8D1C5\"\r\n    tools:context=\".EditReservasiActivity\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/Judul\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:text=\"RESERVASI\"\r\n        android:layout_marginLeft=\"110dp\"\r\n        android:textSize=\"30dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        />\r\n\r\n    <EditText\r\n        android:id=\"@+id/edit_nama\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Nama\"\r\n        android:minHeight=\"48dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/Judul\"/>\r\n    <EditText\r\n        android:id=\"@+id/edit_noPlat\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"No Plat\"\r\n        android:minHeight=\"48dp\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_nama\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"/>\r\n    <EditText\r\n        android:id=\"@+id/edit_jenisKendaraan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Jenis Kendaraan\"\r\n        android:minHeight=\"48dp\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_noPlat\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"/>\r\n    <EditText\r\n        android:id=\"@+id/edit_keluhan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Keluhan\"\r\n        android:minLines=\"3\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_jenisKendaraan\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:gravity=\"top\"\r\n        />\r\n    <Button\r\n        android:id=\"@+id/button_save\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"SAVE\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_keluhan\"\r\n        android:layout_marginTop=\"20dp\"\r\n        />\r\n    <Button\r\n        android:id=\"@+id/button_update\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"UPDATE\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/button_save\"\r\n        android:layout_marginTop=\"20dp\"\r\n        />\r\n\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/layout/activity_edit_reservasi.xml b/app/src/main/res/layout/activity_edit_reservasi.xml
++--- a/app/src/main/res/layout/activity_edit_reservasi.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/res/layout/activity_edit_reservasi.xml	(date 1664073855750)
++@@ -6,7 +6,6 @@
++     android:layout_width="match_parent"
++     android:layout_height="match_parent"
++     android:padding="20dp"
++-    android:background="#E8D1C5"
++     tools:context=".EditReservasiActivity">
++ 
++     <TextView
++@@ -66,7 +65,6 @@
++         android:layout_width="0dp"
++         android:layout_height="wrap_content"
++         android:text="SAVE"
++-        android:backgroundTint="#B8926A"
++         app:layout_constraintStart_toStartOf="parent"
++         app:layout_constraintEnd_toEndOf="parent"
++         app:layout_constraintTop_toBottomOf="@+id/edit_keluhan"
++@@ -77,12 +75,10 @@
++         android:layout_width="0dp"
++         android:layout_height="wrap_content"
++         android:text="UPDATE"
++-        android:backgroundTint="#B8926A"
++         app:layout_constraintStart_toStartOf="parent"
++         app:layout_constraintEnd_toEndOf="parent"
++         app:layout_constraintTop_toBottomOf="@+id/button_save"
++         android:layout_marginTop="20dp"
++         />
++ 
++-
++ </androidx.constraintlayout.widget.ConstraintLayout>
++\ No newline at end of file
++Index: app/src/main/AndroidManifest.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.example.tubes\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Tubes\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".EditProfileActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Menu\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Register\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"false\"></activity>\r\n        <activity\r\n            android:name=\".SplashScreen\"\r\n            android:exported=\"true\"\r\n            android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
++--- a/app/src/main/AndroidManifest.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/AndroidManifest.xml	(date 1664075045876)
++@@ -14,6 +14,15 @@
++         android:theme="@style/Theme.Tubes"
++         tools:targetApi="31">
++         <activity
+++            android:name=".ReservasiActivity"
+++            android:exported="false" />
+++        <activity
+++            android:name=".ReservasiAdapter"
+++            android:exported="false" />
+++        <activity
+++            android:name=".EditReservasiActivity"
+++            android:exported="false" />
+++        <activity
++             android:name=".EditProfileActivity"
++             android:exported="false" />
++         <activity
++@@ -24,7 +33,7 @@
++             android:exported="false" />
++         <activity
++             android:name=".MainActivity"
++-            android:exported="false"></activity>
+++            android:exported="false" />
++         <activity
++             android:name=".SplashScreen"
++             android:exported="true"
++Index: build.gradle
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id 'com.android.application' version '7.2.2' apply false\r\n    id 'com.android.library' version '7.2.2' apply false\r\n    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/build.gradle b/build.gradle
++--- a/build.gradle	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/build.gradle	(date 1664039247304)
++@@ -2,7 +2,7 @@
++ plugins {
++     id 'com.android.application' version '7.2.2' apply false
++     id 'com.android.library' version '7.2.2' apply false
++-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+++    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
++ }
++ 
++ task clean(type: Delete) {
++Index: .idea/misc.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/drawable/ic_delete.xml\" value=\"0.1775\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/drawable/ic_edit.xml\" value=\"0.1775\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_edit_profile.xml\" value=\"0.18\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_edit_reservasi.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_main.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_menu.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_register.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_reservasi.xml\" value=\"0.20833333333333334\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_reservasi_adapter.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_akun.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_home.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_reservasi.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/fragment_sukucadang.xml\" value=\"0.209375\" />\r\n        <entry key=\"..\\:/Tubes/app/src/main/res/layout/rv_item_sukucadang.xml\" value=\"0.209375\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/misc.xml b/.idea/misc.xml
++--- a/.idea/misc.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/.idea/misc.xml	(date 1664073738347)
++@@ -3,15 +3,13 @@
++   <component name="DesignSurface">
++     <option name="filePathToZoomLevelMap">
++       <map>
++-        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_delete.xml" value="0.1775" />
++-        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_edit.xml" value="0.1775" />
++-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_profile.xml" value="0.18" />
++-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.209375" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.1" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi.xml" value="0.1" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.25416666666666665" />
+++        <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_reservasi.xml" value="0.2" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_menu.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_register.xml" value="0.22" />
++-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi.xml" value="0.20833333333333334" />
++-        <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
++         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
++Index: app/src/main/res/values/colors.xml
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
++<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n</resources>
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
++--- a/app/src/main/res/values/colors.xml	(revision 3eabbdee012289d76eb694142dbe9369205f0c7c)
+++++ b/app/src/main/res/values/colors.xml	(date 1664039247253)
++@@ -7,4 +7,5 @@
++     <color name="teal_700">#FF018786</color>
++     <color name="black">#FF000000</color>
++     <color name="white">#FFFFFFFF</color>
+++    <color name="brown">#964B00</color>
++ </resources>
++\ No newline at end of file
++Index: .idea/.name
++IDEA additional info:
++Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
++<+>UTF-8
++===================================================================
++diff --git a/.idea/.name b/.idea/.name
++new file mode 100644
++--- /dev/null	(date 1664039249720)
+++++ b/.idea/.name	(date 1664039249720)
++@@ -0,0 +1,1 @@
+++Tubes
++\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22__Changes_.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22__Changes_.xml b/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22__Changes_.xml
+new file mode 100644
+--- /dev/null	(date 1664439784881)
++++ b/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22__Changes_.xml	(date 1664439784881)
+@@ -0,0 +1,4 @@
++<changelist name="Uncommitted_changes_before_Update_at_29_09_2022_15_22_[Changes]" date="1664439771937" recycled="true" deleted="true">
++  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_29_09_2022_15_22_[Changes]/shelved.patch" />
++  <option name="DESCRIPTION" value="Uncommitted changes before Update at 29/09/2022 15:22 [Changes]" />
++</changelist>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_edit_reservasi.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:padding=\"20dp\"\r\n    android:background=\"#E8D1C5\"\r\n    tools:context=\".EditReservasiActivity\">\r\n\r\n    <TextView\r\n        android:id=\"@+id/Judul\"\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"50dp\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:text=\"RESERVASI\"\r\n        android:layout_marginLeft=\"110dp\"\r\n        android:textSize=\"30dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        />\r\n\r\n    <EditText\r\n        android:id=\"@+id/edit_nama\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Nama\"\r\n        android:minHeight=\"48dp\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/Judul\"/>\r\n    <EditText\r\n        android:id=\"@+id/edit_noPlat\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"No Plat\"\r\n        android:minHeight=\"48dp\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_nama\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"/>\r\n    <EditText\r\n        android:id=\"@+id/edit_jenisKendaraan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Jenis Kendaraan\"\r\n        android:minHeight=\"48dp\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_noPlat\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"/>\r\n    <EditText\r\n        android:id=\"@+id/edit_keluhan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:hint=\"Keluhan\"\r\n        android:minLines=\"3\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_jenisKendaraan\"\r\n        android:layout_marginTop=\"10dp\"\r\n        android:gravity=\"top\"\r\n        />\r\n    <Button\r\n        android:id=\"@+id/button_save\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"SAVE\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/edit_keluhan\"\r\n        android:layout_marginTop=\"20dp\"\r\n        />\r\n    <Button\r\n        android:id=\"@+id/button_update\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:text=\"UPDATE\"\r\n        android:backgroundTint=\"#B8926A\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/button_save\"\r\n        android:layout_marginTop=\"20dp\"\r\n        />\r\n\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_edit_reservasi.xml b/app/src/main/res/layout/activity_edit_reservasi.xml
+--- a/app/src/main/res/layout/activity_edit_reservasi.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/res/layout/activity_edit_reservasi.xml	(date 1664439768733)
+@@ -6,7 +6,6 @@
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:padding="20dp"
+-    android:background="#E8D1C5"
+     tools:context=".EditReservasiActivity">
+ 
+     <TextView
+@@ -66,7 +65,6 @@
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:text="SAVE"
+-        android:backgroundTint="#B8926A"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/edit_keluhan"
+@@ -77,12 +75,10 @@
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:text="UPDATE"
+-        android:backgroundTint="#B8926A"
+         app:layout_constraintStart_toStartOf="parent"
+         app:layout_constraintEnd_toEndOf="parent"
+         app:layout_constraintTop_toBottomOf="@+id/button_save"
+         android:layout_marginTop="20dp"
+         />
+ 
+-
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/example/tubes/ReservasiActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.tubes\r\n\r\nimport android.content.DialogInterface\r\nimport android.content.Intent\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport android.os.Bundle\r\nimport android.util.Log\r\nimport android.widget.Toast\r\nimport androidx.appcompat.app.AlertDialog\r\nimport androidx.recyclerview.widget.LinearLayoutManager\r\nimport com.example.tubes.room.Constant\r\nimport com.example.tubes.room.Reservasi\r\nimport com.example.tubes.room.ReservasiDB\r\nimport kotlinx.android.synthetic.main.activity_reservasi.*\r\nimport kotlinx.coroutines.CoroutineScope\r\nimport kotlinx.coroutines.Dispatchers\r\nimport kotlinx.coroutines.launch\r\nimport kotlinx.coroutines.withContext\r\n\r\nclass ReservasiActivity : AppCompatActivity() {\r\n    val db by lazy { ReservasiDB(this) }\r\n    lateinit var reservasiAdapter: ReservasiAdapter\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        getSupportActionBar()?.hide()\r\n        super.onCreate(savedInstanceState)\r\n        setContentView(R.layout.activity_reservasi)\r\n        setupListener()\r\n        setupRecyclerView()\r\n    }\r\n\r\n    private fun setupRecyclerView() {\r\n        reservasiAdapter = ReservasiAdapter(arrayListOf(), object :\r\n            ReservasiAdapter.OnAdapterListener{\r\n            override fun onClick(reservasi: Reservasi) {\r\n                Toast.makeText(applicationContext, reservasi.nama,\r\n                    Toast.LENGTH_SHORT).show()\r\n                intentEdit(reservasi.id, Constant.TYPE_READ)\r\n            }\r\n            override fun onUpdate(reservasi: Reservasi) {\r\n                intentEdit(reservasi.id, Constant.TYPE_UPDATE)\r\n            }\r\n            override fun onDelete(reservasi: Reservasi) {\r\n                deleteDialog(reservasi)\r\n            }\r\n        })\r\n        list_reservasi.apply {\r\n            layoutManager = LinearLayoutManager(applicationContext)\r\n            adapter = reservasiAdapter\r\n        }\r\n    }\r\n    private fun deleteDialog(reservasi: Reservasi){\r\n        val alertDialog = AlertDialog.Builder(this)\r\n        alertDialog.apply {\r\n            setTitle(\"Confirmation\")\r\n            setMessage(\"Are You Sure to delete this data From${reservasi.nama}?\")\r\n            setNegativeButton(\"Cancel\", DialogInterface.OnClickListener\r\n            { dialogInterface, i ->\r\n                dialogInterface.dismiss()\r\n            })\r\n            setPositiveButton(\"Delete\", DialogInterface.OnClickListener\r\n            { dialogInterface, i ->\r\n                dialogInterface.dismiss()\r\n                CoroutineScope(Dispatchers.IO).launch {\r\n                    db.reservasiDao().deleteReservasi(reservasi)\r\n                    loadData()\r\n                }\r\n            })\r\n        }\r\n        alertDialog.show()\r\n    }\r\n    override fun onStart() {\r\n        super.onStart()\r\n        loadData()\r\n    }\r\n    //untuk load data yang tersimpan pada database yang sudah create data\r\n\r\n    fun loadData() {\r\n        CoroutineScope(Dispatchers.IO).launch {\r\n            val reservasi_val = db.reservasiDao().getReservasi()\r\n            Log.d(\"ReservasiActivity\",\"dbResponse: $reservasi_val\")\r\n            withContext(Dispatchers.Main){\r\n                reservasiAdapter.setData( reservasi_val )\r\n            }\r\n        }\r\n    }\r\n    fun setupListener() {\r\n        button_create.setOnClickListener{\r\n            intentEdit(0, Constant.TYPE_CREATE)\r\n        }\r\n    }\r\n    //pick data dari Id yang sebagai primary key\r\n    fun intentEdit(reservasiId : Int, intentType: Int){\r\n        startActivity(\r\n            Intent(applicationContext, EditReservasiActivity::class.java)\r\n                .putExtra(\"intent_id\", reservasiId)\r\n                .putExtra(\"intent_type\", intentType)\r\n        )\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/tubes/ReservasiActivity.kt b/app/src/main/java/com/example/tubes/ReservasiActivity.kt
+--- a/app/src/main/java/com/example/tubes/ReservasiActivity.kt	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/java/com/example/tubes/ReservasiActivity.kt	(date 1664441818174)
+@@ -16,13 +16,17 @@
+ import kotlinx.coroutines.Dispatchers
+ import kotlinx.coroutines.launch
+ import kotlinx.coroutines.withContext
++import com.example.tubes.databinding.ActivityMainBinding
+ 
+ class ReservasiActivity : AppCompatActivity() {
+     val db by lazy { ReservasiDB(this) }
+     lateinit var reservasiAdapter: ReservasiAdapter
+ 
++    private var binding: ActivityMainBinding? = null
++    private val CHANNEL_ID_2 = "channel_notification_01"
++
++
+     override fun onCreate(savedInstanceState: Bundle?) {
+-        getSupportActionBar()?.hide()
+         super.onCreate(savedInstanceState)
+         setContentView(R.layout.activity_reservasi)
+         setupListener()
+@@ -78,7 +82,7 @@
+     fun loadData() {
+         CoroutineScope(Dispatchers.IO).launch {
+             val reservasi_val = db.reservasiDao().getReservasi()
+-            Log.d("ReservasiActivity","dbResponse: $reservasi_val")
++            Log.d("MainActivity","dbResponse: $reservasi_val")
+             withContext(Dispatchers.Main){
+                 reservasiAdapter.setData( reservasi_val )
+             }
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    package=\"com.example.tubes\">\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:dataExtractionRules=\"@xml/data_extraction_rules\"\r\n        android:fullBackupContent=\"@xml/backup_rules\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.Tubes\"\r\n        tools:targetApi=\"31\">\r\n        <activity\r\n            android:name=\".EditProfileActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".ReservasiActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".EditReservasiActivity\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".ReservasiAdapter\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Menu\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".Register\"\r\n            android:exported=\"false\" />\r\n        <activity\r\n            android:name=\".MainActivity\"\r\n            android:exported=\"false\"></activity>\r\n        <activity\r\n            android:name=\".SplashScreen\"\r\n            android:exported=\"true\"\r\n            android:theme=\"@style/Theme.AppCompat.Light.NoActionBar\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+--- a/app/src/main/AndroidManifest.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/AndroidManifest.xml	(date 1664439768742)
+@@ -14,6 +14,15 @@
+         android:theme="@style/Theme.Tubes"
+         tools:targetApi="31">
+         <activity
++            android:name=".ReservasiActivity"
++            android:exported="false" />
++        <activity
++            android:name=".ReservasiAdapter"
++            android:exported="false" />
++        <activity
++            android:name=".EditReservasiActivity"
++            android:exported="false" />
++        <activity
+             android:name=".EditProfileActivity"
+             android:exported="false" />
+         <activity
+@@ -33,7 +42,7 @@
+             android:exported="false" />
+         <activity
+             android:name=".MainActivity"
+-            android:exported="false"></activity>
++            android:exported="false" />
+         <activity
+             android:name=".SplashScreen"
+             android:exported="true"
+Index: app/src/main/res/layout/activity_reservasi_adapter.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"wrap_content\"\r\n    android:background=\"#E8D1C5\"\r\n    android:padding=\"10dp\">\r\n    <TextView\r\n        android:id=\"@+id/text_nama\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Nama Pemilik\"\r\n        android:textSize=\"24dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <TextView\r\n        android:id=\"@+id/text_noPlat\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Nomor plat\"\r\n        android:textSize=\"20dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/text_nama\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <TextView\r\n        android:id=\"@+id/text_jenisKendaraan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Jenis kendaraan\"\r\n        android:textSize=\"20dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/text_noPlat\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <TextView\r\n        android:id=\"@+id/text_keluhan\"\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"wrap_content\"\r\n        tools:text=\"Keluhan\"\r\n        android:textSize=\"20dp\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintTop_toBottomOf=\"@+id/text_jenisKendaraan\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_edit\"\r\n        />\r\n    <ImageView\r\n        android:id=\"@+id/icon_edit\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:src=\"@drawable/ic_edit\"\r\n        android:padding=\"20dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintEnd_toStartOf=\"@+id/icon_delete\"\r\n        />\r\n    <ImageView\r\n        android:id=\"@+id/icon_delete\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:src=\"@drawable/ic_delete\"\r\n        android:padding=\"20dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        />\r\n\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/activity_reservasi_adapter.xml b/app/src/main/res/layout/activity_reservasi_adapter.xml
+--- a/app/src/main/res/layout/activity_reservasi_adapter.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/res/layout/activity_reservasi_adapter.xml	(date 1664439768726)
+@@ -5,7 +5,6 @@
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:background="#E8D1C5"
+     android:padding="10dp">
+     <TextView
+         android:id="@+id/text_nama"
+Index: build.gradle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>// Top-level build file where you can add configuration options common to all sub-projects/modules.\r\nplugins {\r\n    id 'com.android.application' version '7.2.2' apply false\r\n    id 'com.android.library' version '7.2.2' apply false\r\n    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false\r\n}\r\n\r\ntask clean(type: Delete) {\r\n    delete rootProject.buildDir\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/build.gradle b/build.gradle
+--- a/build.gradle	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/build.gradle	(date 1664440777504)
+@@ -1,8 +1,12 @@
+-// Top-level build file where you can add configuration options common to all sub-projects/modules.
++buildscript {
++    dependencies {
++        classpath 'com.google.gms:google-services:4.3.14'
++    }
++}// Top-level build file where you can add configuration options common to all sub-projects/modules.
+ plugins {
+     id 'com.android.application' version '7.2.2' apply false
+     id 'com.android.library' version '7.2.2' apply false
+-    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
++    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+ }
+ 
+ task clean(type: Delete) {
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"Android Studio default JDK\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/build/classes\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"Android\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/.idea/misc.xml	(date 1664439771522)
+@@ -1,5 +1,26 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="DesignSurface">
++    <option name="filePathToZoomLevelMap">
++      <map>
++        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_delete.xml" value="0.1775" />
++        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_edit.xml" value="0.1775" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_profile.xml" value="0.18" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_menu.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_register.xml" value="0.22" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi.xml" value="0.20833333333333334" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_akun.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_reservasi.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/fragment_sukucadang.xml" value="0.209375" />
++        <entry key="..\:/Tubes/app/src/main/res/layout/rv_item_sukucadang.xml" value="0.209375" />
++      </map>
++    </option>
++  </component>
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/build/classes" />
+   </component>
+Index: app/src/main/res/values/colors.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<resources>\r\n    <color name=\"purple_200\">#FFBB86FC</color>\r\n    <color name=\"purple_500\">#FF6200EE</color>\r\n    <color name=\"purple_700\">#FF3700B3</color>\r\n    <color name=\"teal_200\">#FF03DAC5</color>\r\n    <color name=\"teal_700\">#FF018786</color>\r\n    <color name=\"black\">#FF000000</color>\r\n    <color name=\"white\">#FFFFFFFF</color>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+--- a/app/src/main/res/values/colors.xml	(revision 2115f5c0e85ecf6d013d6610a540cba1af66c117)
++++ b/app/src/main/res/values/colors.xml	(date 1664439771584)
+@@ -7,4 +7,5 @@
+     <color name="teal_700">#FF018786</color>
+     <color name="black">#FF000000</color>
+     <color name="white">#FFFFFFFF</color>
++    <color name="brown">#964B00</color>
+ </resources>
+\ No newline at end of file

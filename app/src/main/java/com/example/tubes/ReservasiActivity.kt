@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tubes.room.Constant
 import com.example.tubes.room.Reservasi
@@ -21,12 +23,14 @@ class ReservasiActivity : AppCompatActivity() {
     val db by lazy { ReservasiDB(this) }
     lateinit var reservasiAdapter: ReservasiAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reservasi)
         setupListener()
         setupRecyclerView()
+
+
     }
 
     private fun setupRecyclerView() {
@@ -78,7 +82,7 @@ class ReservasiActivity : AppCompatActivity() {
     fun loadData() {
         CoroutineScope(Dispatchers.IO).launch {
             val reservasi_val = db.reservasiDao().getReservasi()
-            Log.d("ReservasiActivity","dbResponse: $reservasi_val")
+            Log.d("MainActivity","dbResponse: $reservasi_val")
             withContext(Dispatchers.Main){
                 reservasiAdapter.setData( reservasi_val )
             }
@@ -97,4 +101,6 @@ class ReservasiActivity : AppCompatActivity() {
                 .putExtra("intent_type", intentType)
         )
     }
+
+
 }

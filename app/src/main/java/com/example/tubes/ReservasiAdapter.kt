@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tubes.room.Reservasi
 import kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*
 
-class ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val listener: OnAdapterListener) :
+class ReservasiAdapter (private val reservasies: ArrayList<Reservasi>, private val
+listener: OnAdapterListener) :
     RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             ReservasiViewHolder {
@@ -21,34 +22,34 @@ class ReservasiAdapter (private val reservasi: ArrayList<Reservasi>, private val
     }
     override fun onBindViewHolder(holder: ReservasiViewHolder, position:
     Int) {
-        val reservasi_val = reservasi[position]
-        holder.view.text_nama.text = reservasi_val.nama
-        holder.view.text_noPlat.text = reservasi_val.noPlat
-        holder.view.text_jenisKendaraan.text = reservasi_val.jenisKendaraan
-        holder.view.text_keluhan.text = reservasi_val.keluhan
+        val reservasi = reservasies[position]
+        holder.view.text_nama.text = reservasi.nama
+        holder.view.text_noPlat.text = reservasi.noPlat
+        holder.view.text_jenisKendaraan.text = reservasi.jenisKendaraan
+        holder.view.text_keluhan.text = reservasi.keluhan
 
         holder.view.text_nama.setOnClickListener{
-            listener.onClick(reservasi_val)
-        }
-        holder.view.icon_edit.setOnClickListener {
-            listener.onUpdate(reservasi_val)
+            listener.onClick(reservasi)
         }
         holder.view.icon_delete.setOnClickListener {
-            listener.onDelete(reservasi_val)
+            listener.onUpdate(reservasi)
+        }
+        holder.view.icon_delete.setOnClickListener {
+            listener.onDelete(reservasi)
         }
     }
-    override fun getItemCount() = reservasi.size
+    override fun getItemCount() = reservasies.size
     inner class ReservasiViewHolder( val view: View) :
         RecyclerView.ViewHolder(view)
     @SuppressLint("NotifyDataSetChanged")
     fun setData(list: List<Reservasi>){
-        reservasi.clear()
-        reservasi.addAll(list)
+        reservasies.clear()
+        reservasies.addAll(list)
         notifyDataSetChanged()
     }
     interface OnAdapterListener {
-        fun onClick(note: Reservasi)
-        fun onUpdate(note: Reservasi)
-        fun onDelete(note: Reservasi)
+        fun onClick(reservasi: Reservasi)
+        fun onUpdate(reservasi: Reservasi)
+        fun onDelete(reservasi: Reservasi)
     }
 }
