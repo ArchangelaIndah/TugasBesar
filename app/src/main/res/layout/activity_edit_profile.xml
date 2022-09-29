@@ -69,26 +69,26 @@
         android:id="@+id/etTglLahir"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="96dp"
         android:cursorVisible="false"
         android:hint="Tanggal Lahir"
         app:layout_constraintTop_toBottomOf="@+id/etEmail"
-        tools:layout_editor_absoluteX="-16dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="100dp"
         android:hint="Nomor Telepon"
         app:layout_constraintTop_toBottomOf="@+id/etTglLahir"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="15dp" />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="64dp"
         android:hint="Email"
         app:layout_constraintTop_toBottomOf="@+id/etNama"
         tools:layout_editor_absoluteX="0dp" />
