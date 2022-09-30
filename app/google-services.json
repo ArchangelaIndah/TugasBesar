@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "834965810558",
-    "project_id": "tubes-97da9",
-    "storage_bucket": "tubes-97da9.appspot.com"
+    "project_number": "527671634339",
+    "project_id": "tubes-c2637",
+    "storage_bucket": "tubes-c2637.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:834965810558:android:3d81e0101a86e3e1ca572f",
+        "mobilesdk_app_id": "1:527671634339:android:8d5235b51e3edcd43f1216",
         "android_client_info": {
           "package_name": "com.example.tubes"
         }
       },
       "oauth_client": [
         {
-          "client_id": "834965810558-pe1vkn343meirv1m81ahifqdma1n3jfb.apps.googleusercontent.com",
+          "client_id": "527671634339-ks052dn4bvclrub5qd5j70ttstdredor.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDv7TuWWpcRUQnU7mqJLQtjOeiZuwn_Evo"
+          "current_key": "AIzaSyDG_vqeOG6aAp4CHsCsyGP3TBf5CWhfaXE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "834965810558-pe1vkn343meirv1m81ahifqdma1n3jfb.apps.googleusercontent.com",
+              "client_id": "527671634339-ks052dn4bvclrub5qd5j70ttstdredor.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

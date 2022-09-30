@@ -1,12 +1,22 @@
 package com.example.tubes
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.tubes.databinding.ActivityRegisterBinding
 import com.example.tubes.room.User
 import com.example.tubes.room.UserDB
@@ -14,6 +24,9 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 
 class Register : AppCompatActivity() {
+    private val notificationId = 101
+    private val CHANNEL_ID = "channel_notification"
+
     private lateinit var inputUsername: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
     private lateinit var inputEmail: TextInputLayout
@@ -34,6 +47,7 @@ class Register : AppCompatActivity() {
 
         binding.btnMasuk.setOnClickListener{
             val moveLogin = Intent(this@Register, MainActivity::class.java)
+
             startActivity(moveLogin)
         }
 
@@ -90,9 +104,58 @@ class Register : AppCompatActivity() {
                 mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())
                 mBundle.putString("Password",binding.inputLayoutPassword.getEditText()?.getText().toString())
                 moveHome.putExtra("register", mBundle)
+                createNotificationChannel()
+                sendNotification()
+                Toast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered", Toast.LENGTH_SHORT).show()
                 startActivity(moveHome)
             }
 
         })
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "Notification Title"
+            val descriptionText = "Notification Description"
+
+            val channel1 = NotificationChannel(CHANNEL_ID, name, NotificationManager.IMPORTANCE_DEFAULT).apply{
+                description = descriptionText
+            }
+
+            val notificationManager: NotificationManager =
+                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel1)
+        }
+    }
+
+    private fun sendNotification(){
+        val intent: Intent = Intent(this, MainActivity::class.java).apply{
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val broadcastIntent: Intent = Intent(this, NotificationReceiver::class.java)
+        broadcastIntent.putExtra("toastMessage", "Login first to access menu")
+        val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.logo)
+        val bigPictureStyle = NotificationCompat.BigPictureStyle()
+            .bigPicture(largeIcon)
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo)
+            .setStyle(bigPictureStyle)
+            .setContentTitle("Register Success")
+            .setContentText("Thankyou for registering at Bengkelaz")
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .setColor(Color.GREEN)
+            .setAutoCancel(true)
+            .setOnlyAlertOnce(true)
+            .setContentIntent(pendingIntent)
+            .addAction(R.mipmap.ic_launcher, "Access Menu", actionIntent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        Toast.makeText(applicationContext, "Register with your new Account first", Toast.LENGTH_SHORT).show()
+        with(NotificationManagerCompat.from(this)){
+            notify(notificationId, builder.build())
+        }
     }
 }
