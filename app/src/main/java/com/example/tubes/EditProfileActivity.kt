@@ -26,6 +26,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var editProfileLayout: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
 
