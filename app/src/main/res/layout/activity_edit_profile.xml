@@ -108,6 +108,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:backgroundTint="#B8926A"
+        android:textColor="@color/black"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -60,6 +60,7 @@
             android:layout_gravity="center_horizontal"
             android:backgroundTint="#B8926A"
             android:layout_marginTop="180dp"
+            android:textColor="@color/black"
             android:text="Edit Profile" />
 
     </androidx.cardview.widget.CardView>
@@ -71,7 +72,7 @@
         android:layout_height="wrap_content"
         android:width="354dp"
         android:text="Log Out"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
