@@ -46,14 +46,14 @@ class EditReservasiActivity : AppCompatActivity() {
     fun setupView(){
         val intentType = intent.getIntExtra("intent_type", 0)
         when (intentType){
-            Constant.TYPE_CREATE -> {
-                button_update.visibility = View.GONE
-            }
-            Constant.TYPE_READ -> {
-                button_save.visibility = View.GONE
-                button_update.visibility = View.GONE
-                getReservasi()
-            }
+//            Constant.TYPE_CREATE -> {
+//                button_update.visibility = View.GONE
+//            }
+//            Constant.TYPE_READ -> {
+//                button_save.visibility = View.GONE
+//                button_update.visibility = View.GONE
+//                getReservasi()
+//            }
             Constant.TYPE_UPDATE -> {
                 button_save.visibility = View.GONE
                 getReservasi()
@@ -74,17 +74,17 @@ class EditReservasiActivity : AppCompatActivity() {
                 finish()
             }
         }
-        button_update.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                db.reservasiDao().updateReservasi(
-                    Reservasi(reservasiId,edit_nama.text.toString(),
-                        edit_noPlat.text.toString(),
-                        edit_jenisKendaraan.text.toString(),
-                        edit_keluhan.text.toString())
-                )
-                finish()
-            }
-        }
+//        button_update.setOnClickListener {
+//            CoroutineScope(Dispatchers.IO).launch {
+//                db.reservasiDao().updateReservasi(
+//                    Reservasi(reservasiId,edit_nama.text.toString(),
+//                        edit_noPlat.text.toString(),
+//                        edit_jenisKendaraan.text.toString(),
+//                        edit_keluhan.text.toString())
+//                )
+//                finish()
+//            }
+//        }
     }
     fun getReservasi() {
         reservasiId = intent.getIntExtra("intent_id", 0)

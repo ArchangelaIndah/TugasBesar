@@ -11,18 +11,16 @@
 
     <TextView
         android:id="@+id/Judul"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-        android:layout_width="match_parent"
+        android:layout_width="160dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:text="RESERVASI"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         android:textColor="@color/black"
-        android:layout_marginLeft="100dp"
         android:textSize="30dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edit_nama"
@@ -63,29 +61,20 @@
         android:layout_marginTop="10dp"
         android:gravity="top"
         />
+
     <Button
         android:id="@+id/button_save"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="SAVE"
+        android:layout_marginTop="296dp"
+        android:text="Simpan"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_keluhan"
-        android:layout_marginTop="20dp"
         app:backgroundTint="#B8926A"
-        />
-    <Button
-        android:id="@+id/button_update"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="UPDATE"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_save"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_marginTop="20dp"
-        />
+        app:layout_constraintHorizontal_bias="0.547"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_keluhan" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
