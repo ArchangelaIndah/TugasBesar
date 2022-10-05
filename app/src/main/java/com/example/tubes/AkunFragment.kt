@@ -42,7 +42,8 @@ class AkunFragment  : Fragment() {
         }
 
         btnLogout.setOnClickListener {
-            activity?.finish()
+            val moveToLogin = Intent(this@AkunFragment.context, MainActivity::class.java)
+            startActivity(moveToLogin)
         }
 
     }
