@@ -31,7 +31,7 @@ listener: OnAdapterListener) :
         holder.view.text_nama.setOnClickListener{
             listener.onClick(reservasi)
         }
-        holder.view.icon_delete.setOnClickListener {
+        holder.view.icon_edit.setOnClickListener {
             listener.onUpdate(reservasi)
         }
         holder.view.icon_delete.setOnClickListener {
