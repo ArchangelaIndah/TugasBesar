@@ -9,12 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.example.tubes.room.UserDB
 
 class AkunFragment  : Fragment() {
     val db by lazy{activity?.let { UserDB(it )}  }
-
     var sharedPreferences: SharedPreferences? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,5 +46,13 @@ class AkunFragment  : Fragment() {
             startActivity(moveToLogin)
         }
 
+        val btnCam: ImageButton = view.findViewById(R.id.imageCam)
+        btnCam.setOnClickListener{
+            val moveCam = Intent(this@AkunFragment.context, CameraActivity::class.java)
+            startActivity(moveCam)
+        }
+
     }
+
+
 }
