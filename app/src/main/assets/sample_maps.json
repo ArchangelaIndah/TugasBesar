@@ -1,0 +1,27 @@
+{
+  "results": [
+    {
+      "geometry": {
+        "location":{
+          "lat" : -7.779433,
+          "lng" : 110.415782
+        }
+      },
+      "name": "Kampus 3 Universitas Atma Jaya Yogyakarta",
+      "vicinity": "Jl. Babarsari No.43, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
+    },
+
+    {
+      "geometry": {
+        "location":{
+          "lat" : -7.78083664838206,
+          "lng" : 110.40983466466645
+        }
+      },
+      "name": "Bengkelaz",
+      "vicinity": "Jl. Laksda Adisucipti No.53, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55560"
+    }
+
+  ],
+  "status": "OK"
+}

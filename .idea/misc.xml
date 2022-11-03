@@ -9,6 +9,11 @@
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.12360688956433637" />
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_akun.xml" value="0.25416666666666665" />
         <entry key="..\:/Kulian UAJY/semester 5 Kulian UAJY/PBP C/6/TugasBesar/app/src/main/res/layout/fragment_reservasi.xml" value="0.176" />
+        <entry key="..\:/Tubes/app/src/main/res/drawable/bg_circle.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/drawable/bg_rounded_rect.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/drawable/bg_triangle.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_edit_reservasi.xml" value="0.10182370820668693" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -17,10 +22,16 @@
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi.xml" value="0.1408514492753623" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_reservasi_adapter.xml" value="0.1408514492753623" />
         <entry key="..\:/Tubes/app/src/main/res/layout/activity_splash_screen.xml" value="0.1408514492753623" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/bg_circle.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/bg_rounded_rect.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/bg_triangle.xml" value="0.1" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_akun.xml" value="0.25" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_home.xml" value="0.1408514492753623" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_reservasi.xml" value="0.1408514492753623" />
         <entry key="..\:/Tubes/app/src/main/res/layout/fragment_sukucadang.xml" value="0.1408514492753623" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/ic_baseline_close_24.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/ic_baseline_location_on_24.xml" value="0.1" />
+        <entry key="..\:/Tubes/app/src/main/res/layout/layout_tooltip.xml" value="0.33" />
         <entry key="..\:/Tubes/app/src/main/res/layout/rv_item_sukucadang.xml" value="0.1408514492753623" />
       </map>
     </option>
