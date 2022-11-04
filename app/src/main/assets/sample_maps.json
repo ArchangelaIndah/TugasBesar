@@ -20,6 +20,17 @@
       },
       "name": "Bengkelaz",
       "vicinity": "Jl. Laksda Adisucipti No.53, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55560"
+    },
+
+    {
+      "geometry": {
+        "location":{
+          "lat" : -7.7804399,
+          "lng" : 110.4141109
+        }
+      },
+      "name": "Kampus 2 Universitas Atma Jaya Yogyakarta",
+      "vicinity": "Jl. Babarsari No.44, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
     }
 
   ],
