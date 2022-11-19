@@ -12,6 +12,7 @@ class Menu : AppCompatActivity() {
     private val profileFragment = AkunFragment()
     private val sukucadangFragment = SukuCadangFragment()
     private val reservasiFragment = ReservasiFragment()
+    private val mahasiswaFragment = MahasiswaFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,8 @@ class Menu : AppCompatActivity() {
                 setThatFragments(sukucadangFragment)
                 R.id.itemReservasi->
                     setThatFragments(reservasiFragment)
+                R.id.itemMahasiswa->
+                    setThatFragments(mahasiswaFragment)
             }
             true
         }
