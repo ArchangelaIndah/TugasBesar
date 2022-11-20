@@ -7,7 +7,9 @@ data class Reservasi (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val nama: String,
-    val noPlat: String,
-    val jenisKendaraan: String,
+    val noplat: String,
+    val jeniskendaraan: String,
     val keluhan: String
-)
+){
+
+}

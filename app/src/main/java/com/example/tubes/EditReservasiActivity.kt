@@ -10,26 +10,37 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tubes.api.ReservasiApi
 import com.example.tubes.room.Constant
-import com.example.tubes.room.Reservasi
+
 import com.example.tubes.room.ReservasiDB
 import kotlinx.android.synthetic.main.activity_edit_reservasi.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.example.tubes.databinding.ActivityEditReservasiBinding
+import com.example.tubes.models.Reservasi
+import com.google.gson.Gson
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 class EditReservasiActivity : AppCompatActivity() {
-    val db by lazy { ReservasiDB(this) }
     private var reservasiId: Int = 0
 
     private var binding: ActivityEditReservasiBinding? = null
     private val CHANNEL_ID_reservasi = "channel_notification_02"
     private val notificationIdReservasi = 102
+    private var queue: RequestQueue? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
+        queue =  Volley.newRequestQueue(this)
 
         binding = ActivityEditReservasiBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
@@ -62,39 +73,17 @@ class EditReservasiActivity : AppCompatActivity() {
     }
     private fun setupListener() {
         button_save.setOnClickListener {
-
             sendNotificationReservasi()
-            CoroutineScope(Dispatchers.IO).launch {
-                db.reservasiDao().addReservasi(
-                    Reservasi(0,edit_nama.text.toString(),
-                        edit_noPlat.text.toString(),
-                        edit_jenisKendaraan.text.toString(),
-                        edit_keluhan.text.toString())
-                )
-                finish()
-            }
+            addReservasi()
         }
         button_update.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                db.reservasiDao().updateReservasi(
-                    Reservasi(reservasiId,edit_nama.text.toString(),
-                        edit_noPlat.text.toString(),
-                        edit_jenisKendaraan.text.toString(),
-                        edit_keluhan.text.toString())
-                )
-                finish()
-            }
+            editReservasi(reservasiId)
+            finish()
         }
     }
     fun getReservasi() {
         reservasiId = intent.getIntExtra("intent_id", 0)
-        CoroutineScope(Dispatchers.IO).launch {
-            val reservasies = db.reservasiDao().getReservasiById(reservasiId)[0]
-            edit_nama.setText(reservasies.nama)
-            edit_noPlat.setText(reservasies.noPlat)
-            edit_jenisKendaraan.setText(reservasies.jenisKendaraan)
-            edit_keluhan.setText(reservasies.keluhan)
-        }
+        getReservasiById(reservasiId)
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
@@ -133,5 +122,128 @@ class EditReservasiActivity : AppCompatActivity() {
         with(NotificationManagerCompat.from(this)){
             notify(notificationIdReservasi, builder.build())
         }
+    }
+
+    private fun addReservasi(){
+        //srReservasi!!.isRefreshing = true
+        val stringRequest: StringRequest = object :
+            StringRequest(Method.POST, ReservasiApi.ADD_URL, Response.Listener { response ->
+                finish()
+                Toast.makeText(this, "Berhsasil Tambah Data", Toast.LENGTH_SHORT ).show()
+            }, Response.ErrorListener { error ->
+                //srReservasi!!.isRefreshing = false
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["nama"] = edit_nama.text.toString()
+                params["noPlat"] = edit_noPlat.text.toString()
+                params["jenisKendaraan"] = edit_jenisKendaraan.text.toString()
+                params["keluhan"] = edit_keluhan.text.toString()
+                return params
+            }
+        }
+        queue!!.add(stringRequest)
+    }
+
+    private fun editReservasi(id: Int){
+        //srReservasi!!.isRefreshing = true
+        val stringRequest: StringRequest = object :
+            StringRequest(Method.PUT, ReservasiApi.UPDATE_URL+id , Response.Listener { response ->
+                finish()
+                Toast.makeText(this, "Berhsasil Edit Data", Toast.LENGTH_SHORT ).show()
+            }, Response.ErrorListener { error ->
+                //srReservasi!!.isRefreshing = false
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["nama"] = edit_nama.text.toString()
+                params["noplat"] = edit_noPlat.text.toString()
+                params["jeniskendaraan"] = edit_jenisKendaraan.text.toString()
+                params["keluhan"] = edit_keluhan.text.toString()
+                return params
+            }
+        }
+        queue!!.add(stringRequest)
+    }
+
+    private fun getReservasiById(id: Int){
+        //srReservasi!!.isRefreshing = true
+        val stringRequest: StringRequest = object :
+            StringRequest(Method.GET, ReservasiApi.GET_BY_ID_URL + id, Response.Listener { response ->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                val jsonData = jsonObject.getJSONArray("data")
+                val reservasi : Array<com.example.tubes.room.Reservasi> = gson.fromJson(jsonData.toString(),Array<com.example.tubes.room.Reservasi>::class.java)
+
+                edit_nama.setText(reservasi[0].nama)
+                edit_noPlat.setText(reservasi[0].noplat)
+                edit_jenisKendaraan.setText(reservasi[0].jeniskendaraan)
+                edit_keluhan.setText(reservasi[0].keluhan)
+
+                if(!reservasi.isEmpty())
+                    Toast.makeText(this, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                else
+                    Toast.makeText(this, "Data Kosong!", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                //srReservasi!!.isRefreshing = false
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(stringRequest)
     }
 }

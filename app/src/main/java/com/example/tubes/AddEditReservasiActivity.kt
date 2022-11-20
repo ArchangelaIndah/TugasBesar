@@ -79,8 +79,8 @@ class AddEditReservasiActivity : AppCompatActivity() {
                 val reservasi = gson.fromJson(response, Reservasi::class.java)
 
                 etNama!!.setText(reservasi.nama)
-                etNoPlat!!.setText(reservasi.noPlat)
-                etJenisKendaraan!!.setText(reservasi.jenisKendaraan)
+                etNoPlat!!.setText(reservasi.noplat)
+                etJenisKendaraan!!.setText(reservasi.jeniskendaraan)
                 etKeluhan!!.setText(reservasi.keluhan)
 
                 Toast.makeText(this@AddEditReservasiActivity, "Data berhasil diambil", Toast.LENGTH_SHORT).show()
