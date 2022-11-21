@@ -17,11 +17,21 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tubes.api.ProfilApi
 import com.example.tubes.databinding.ActivityRegisterBinding
+import com.example.tubes.models.Profil
 import com.example.tubes.room.User
 import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 class Register : AppCompatActivity() {
     private val notificationId = 101
@@ -35,6 +45,8 @@ class Register : AppCompatActivity() {
     private lateinit var mainLayout: ConstraintLayout
     private lateinit var binding : ActivityRegisterBinding
 
+    private var queue: RequestQueue? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         val db by lazy { UserDB(this) }
         getSupportActionBar()?.hide()
@@ -43,6 +55,7 @@ class Register : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        queue = Volley.newRequestQueue(this)
         var akses= true
 
         binding.btnMasuk.setOnClickListener{
@@ -97,8 +110,68 @@ class Register : AppCompatActivity() {
 
 
             if(akses==true){
-                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon,password))
-                println(db.userDao().getUsers())
+
+                val profil = Profil(
+                    username,
+                    password,
+                    email,
+                    tanggalLahir,
+                    nomorTelepon
+                )
+                val stringRequest: StringRequest =
+                    object: StringRequest(Method.POST, ProfilApi.ADD_URL, Response.Listener { response->
+                        val gson = Gson()
+                        val profil = gson.fromJson(response, Profil::class.java)
+
+                        if(profil!=null)
+                            Toast.makeText(this@Register, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+
+                        val returnIntent = Intent()
+                        setResult(RESULT_OK, returnIntent)
+                        finish()
+
+//                        setLoading(false)
+                    }, Response.ErrorListener { error->
+//                        setLoading(false)
+                        try{
+                            val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                            val errors = JSONObject(responseBody)
+                            Toast.makeText(
+                                this@Register,
+                                errors.getString("message"),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }catch (e:Exception){
+                            Toast.makeText(this@Register, e.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }) {
+                        @Throws(AuthFailureError::class)
+                        override fun getHeaders(): MutableMap<String, String> {
+                            val headers = HashMap<String, String>()
+                            headers["Accept"] = "application/json"
+                            return headers
+
+                        }
+
+                        @Throws(AuthFailureError::class)
+                        override fun getBody(): ByteArray {
+                            val gson = Gson()
+                            val requestBody = gson.toJson(profil)
+                            return requestBody.toByteArray(StandardCharsets.UTF_8)
+                        }
+
+                        override fun getBodyContentType(): String {
+                            return "application/json"
+                        }
+                    }
+                // Menambahkan request ke request queue
+                queue!!.add(stringRequest)
+
+
+
+
+//                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon,password))
+//                println(db.userDao().getUsers())
                 val moveHome = Intent(this@Register, MainActivity::class.java)
 
                 mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())

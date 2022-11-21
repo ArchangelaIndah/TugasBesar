@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tubes.room.Reservasi
 import kotlinx.android.synthetic.main.activity_reservasi_adapter.view.*
 
-class ReservasiAdapter (private val reservasies: ArrayList<com.example.tubes.models.Reservasi>, private val
-listener: OnAdapterListener) :
+class ReservasiAdapter (private val reservasies: ArrayList<com.example.tubes.models.Reservasi>, private val listener: OnAdapterListener) :
     RecyclerView.Adapter<ReservasiAdapter.ReservasiViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             ReservasiViewHolder {
