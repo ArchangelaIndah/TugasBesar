@@ -19,16 +19,22 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.tubes.api.ProfilApi
 import com.example.tubes.api.ReservasiApi
+import com.example.tubes.models.Profil
+import com.example.tubes.room.User
 import com.example.tubes.room.UserDB
 import com.google.gson.Gson
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
+import java.util.HashMap
 
 class AkunFragment  : Fragment() {
     val db by lazy{activity?.let { UserDB(it )}  }
     var sharedPreferences: SharedPreferences? = null
     lateinit var profilAdapter: ProfilAdapter
     private var queue: RequestQueue? = null
+    private var namaTxt : TextView? = null
+    private var emailTxt : TextView? = null
+
 
 
     override fun onCreateView(
@@ -44,17 +50,16 @@ class AkunFragment  : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = this.getActivity()?.getSharedPreferences("login", Context.MODE_PRIVATE)
-        val namaTxt :TextView =  view.findViewById(R.id.nama)
-        val emailTxt :TextView =  view.findViewById(R.id.email)
+        namaTxt  =  view.findViewById(R.id.nama)
+        emailTxt =  view.findViewById(R.id.email)
         val btnEdit : Button = view.findViewById(R.id.btnEdit)
         val btnLogout: Button = view.findViewById(R.id.btnLogout)
         val id = sharedPreferences?.getString("id", "")
-
-
+        queue =  Volley.newRequestQueue(requireActivity())
 
         println(id)
-        namaTxt.setText(db?.userDao()?.getUser(id!!.toInt())?.nama)
-        emailTxt.setText(db?.userDao()?.getUser(id!!.toInt())?.email)
+        getProfilById(id!!.toInt())
+
 
         btnEdit.setOnClickListener(){
             (activity as Menu).setActivity(EditProfileActivity())
@@ -73,35 +78,36 @@ class AkunFragment  : Fragment() {
 
     }
 
-    private fun allReservasi(){
+    private fun getProfilById(id: Int){
         //srReservasi!!.isRefreshing = true
         val stringRequest: StringRequest = object :
-            StringRequest(Method.GET, ProfilApi.GET_ALL_URL, Response.Listener { response ->
+            StringRequest(Method.GET, ProfilApi.GET_BY_ID_URL + id, Response.Listener { response ->
                 val gson = Gson()
                 val jsonObject = JSONObject(response)
                 val jsonData = jsonObject.getJSONArray("data")
-                val profil : Array<com.example.tubes.models.Profil> = gson.fromJson(jsonData.toString(),Array<com.example.tubes.models.Profil>::class.java)
+                val profil : Array<Profil> = gson.fromJson(jsonData.toString(),Array<Profil>::class.java)
 
-                profilAdapter.setData( profil )
-//
-//                if(!profil.isEmpty())
-//                    Toast.makeText(this@AkunFragment, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
-//                else
-//                    Toast.makeText(this@AkunFragment, "Data Kosong!", Toast.LENGTH_SHORT).show()
+                namaTxt!!.setText(profil[0].username)
+                emailTxt!!.setText(profil[0].email)
+
+                if(!profil.isEmpty())
+                    Toast.makeText(requireActivity(), "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                else
+                    Toast.makeText(requireActivity(), "Data Kosong!", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
-//                try{
-//                    val responseBody =
-//                        String(error.networkResponse.data, StandardCharsets.UTF_8)
-//                    val errors = JSONObject(responseBody)
-//                    Toast.makeText(
-//                        this@AkunFragment,
-//                        errors.getString("message"),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                }catch (e: Exception){
-//                    Toast.makeText(this@ReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
-//                }
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        requireActivity(),
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(requireActivity(), e.message, Toast.LENGTH_SHORT).show()
+                }
             }){
             @Throws(AuthFailureError::class)
             override fun getHeaders(): Map<String, String> {

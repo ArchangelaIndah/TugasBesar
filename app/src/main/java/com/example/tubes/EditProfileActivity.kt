@@ -12,10 +12,22 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tubes.api.ProfilApi
+import com.example.tubes.api.ReservasiApi
 import com.example.tubes.databinding.ActivityEditProfileBinding
+import com.example.tubes.models.Profil
 import com.example.tubes.room.User
 import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_edit_reservasi.*
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 import java.util.*
 
 
@@ -24,23 +36,25 @@ class EditProfileActivity : AppCompatActivity() {
     var binding: ActivityEditProfileBinding? = null
     var sharedPreferences: SharedPreferences? = null
     private lateinit var editProfileLayout: FrameLayout
+    private var queue: RequestQueue? = null
+    private var password: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
+        queue =  Volley.newRequestQueue(this)
 
         setContentView(binding?.root)
 
         sharedPreferences = this.getSharedPreferences("login", Context.MODE_PRIVATE)
         val id = sharedPreferences?.getString("id", "")
-        binding?.etNama?.setText(db?.userDao()?.getUser(id!!.toInt())?.nama)
-        binding?.etEmail?.setText(db?.userDao()?.getUser(id!!.toInt())?.email)
-        binding?.etPhoneNumber?.setText(db?.userDao()?.getUser(id!!.toInt())?.noTelp)
-        binding?.etTglLahir?.setText(db?.userDao()?.getUser(id!!.toInt())?.tglLahir)
 
+        getProfilById(id!!.toInt())
 
         binding?.btnSave?.setOnClickListener(View.OnClickListener {
+
+
 
             val intent = Intent(this, MainActivity::class.java)
 
@@ -73,7 +87,7 @@ class EditProfileActivity : AppCompatActivity() {
             }
 
             if (checkSave == true) {
-                setupListener()
+                editProfil(id!!.toInt())
                 Toast.makeText(
                     applicationContext,
                     "Your Profile Changed",
@@ -87,6 +101,90 @@ class EditProfileActivity : AppCompatActivity() {
         })
     }
 
+    private fun getProfilById(id: Int){
+        //srReservasi!!.isRefreshing = true
+        val stringRequest: StringRequest = object :
+            StringRequest(Method.GET, ProfilApi.GET_BY_ID_URL + id, Response.Listener { response ->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                val jsonData = jsonObject.getJSONArray("data")
+                val profil : Array<Profil> = gson.fromJson(jsonData.toString(),Array<Profil>::class.java)
+
+                binding?.etNama?.setText(profil[0].username)
+                binding?.etEmail?.setText(profil[0].email)
+                binding?.etPhoneNumber?.setText(profil[0].notelepon)
+                binding?.etTglLahir?.setText(profil[0].tanggallhr)
+                password = profil[0].password
+
+                if(!profil.isEmpty())
+                    Toast.makeText(this, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                else
+                    Toast.makeText(this, "Data Kosong!", Toast.LENGTH_SHORT).show()
+            }, Response.ErrorListener { error ->
+                //srReservasi!!.isRefreshing = false
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(stringRequest)
+    }
+
+    private fun editProfil(id: Int){
+        //srReservasi!!.isRefreshing = true
+        val stringRequest: StringRequest = object :
+            StringRequest(Method.PUT, ProfilApi.UPDATE_URL+id , Response.Listener { response ->
+                finish()
+                Toast.makeText(this, "Berhsasil Edit Data", Toast.LENGTH_SHORT ).show()
+            }, Response.ErrorListener { error ->
+                //srReservasi!!.isRefreshing = false
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+
+            override fun getParams(): Map<String, String> {
+                val params = HashMap<String, String>()
+                params["username"] = binding?.etNama?.text.toString()
+                params["password"] = password
+                params["email"] = binding?.etEmail?.text.toString()
+                params["tanggallhr"] = binding?.etTglLahir?.text.toString()
+                params["notelepon"] = binding?.etPhoneNumber?.text.toString()
+                return params
+            }
+        }
+        queue!!.add(stringRequest)
+    }
 
     private fun setupListener() {
         sharedPreferences = this.getSharedPreferences("login", Context.MODE_PRIVATE)
