@@ -54,7 +54,6 @@ class Register : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-
         queue = Volley.newRequestQueue(this)
         var akses= true
 
@@ -126,6 +125,16 @@ class Register : AppCompatActivity() {
                         if(profil!=null)
                             Toast.makeText(this@Register, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
 
+                        val moveHome = Intent(this@Register, MainActivity::class.java)
+
+                        mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())
+                        mBundle.putString("Password",binding.inputLayoutPassword.getEditText()?.getText().toString())
+                        moveHome.putExtra("register", mBundle)
+                        createNotificationChannel()
+                        sendNotification()
+                        Toast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered", Toast.LENGTH_SHORT).show()
+                        startActivity(moveHome)
+
                         val returnIntent = Intent()
                         setResult(RESULT_OK, returnIntent)
                         finish()
@@ -153,34 +162,24 @@ class Register : AppCompatActivity() {
 
                         }
 
-                        @Throws(AuthFailureError::class)
-                        override fun getBody(): ByteArray {
-                            val gson = Gson()
-                            val requestBody = gson.toJson(profil)
-                            return requestBody.toByteArray(StandardCharsets.UTF_8)
+                        override fun getParams(): Map<String, String> {
+                            val params = HashMap<String, String>()
+                            params["username"] = binding.inputLayoutUsername.getEditText()?.getText().toString()
+                            params["password"] = binding.inputLayoutPassword.getEditText()?.getText().toString()
+                            params["email"] = binding.inputLayoutEmail.getEditText()?.getText().toString()
+                            params["tanggallhr"] = binding.inputLayoutTanggalLahir.getEditText()?.getText().toString()
+                            params["notelepon"] = binding.inputLayoutNomorTelepon.getEditText()?.getText().toString()
+                            return params
                         }
 
-                        override fun getBodyContentType(): String {
-                            return "application/json"
-                        }
                     }
                 // Menambahkan request ke request queue
                 queue!!.add(stringRequest)
 
 
-
-
 //                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon,password))
 //                println(db.userDao().getUsers())
-                val moveHome = Intent(this@Register, MainActivity::class.java)
 
-                mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())
-                mBundle.putString("Password",binding.inputLayoutPassword.getEditText()?.getText().toString())
-                moveHome.putExtra("register", mBundle)
-                createNotificationChannel()
-                sendNotification()
-                Toast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered", Toast.LENGTH_SHORT).show()
-                startActivity(moveHome)
             }
 
         })
@@ -231,4 +230,5 @@ class Register : AppCompatActivity() {
             notify(notificationId, builder.build())
         }
     }
+
 }

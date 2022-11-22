@@ -1,5 +1,6 @@
 package com.example.tubes
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -34,6 +35,7 @@ class AkunFragment  : Fragment() {
     private var queue: RequestQueue? = null
     private var namaTxt : TextView? = null
     private var emailTxt : TextView? = null
+    private var a : Activity? = null
 
 
 
@@ -49,6 +51,7 @@ class AkunFragment  : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        a = requireActivity()
         sharedPreferences = this.getActivity()?.getSharedPreferences("login", Context.MODE_PRIVATE)
         namaTxt  =  view.findViewById(R.id.nama)
         emailTxt =  view.findViewById(R.id.email)
@@ -91,9 +94,9 @@ class AkunFragment  : Fragment() {
                 emailTxt!!.setText(profil[0].email)
 
                 if(!profil.isEmpty())
-                    Toast.makeText(requireActivity(), "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                    Toast.makeText(a, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
                 else
-                    Toast.makeText(requireActivity(), "Data Kosong!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(a, "Data Kosong!", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
@@ -101,12 +104,12 @@ class AkunFragment  : Fragment() {
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
                     Toast.makeText(
-                        requireActivity(),
+                        a,
                         errors.getString("message"),
                         Toast.LENGTH_SHORT
                     ).show()
                 }catch (e: Exception){
-                    Toast.makeText(requireActivity(), e.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(a, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)

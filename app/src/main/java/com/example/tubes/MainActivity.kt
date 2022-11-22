@@ -7,13 +7,25 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tubes.api.ProfilApi
+import com.example.tubes.api.ReservasiApi
+import com.example.tubes.models.Profil
 import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
+import org.json.JSONObject
+import java.nio.charset.StandardCharsets
 
 class MainActivity : AppCompatActivity() {
-    val db by lazy { UserDB (this) }
+
     private lateinit var inputUsername: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
     private lateinit var mainLayout: ConstraintLayout
@@ -22,11 +34,15 @@ class MainActivity : AppCompatActivity() {
 
     var tUsername : String = ""
     var tPassword : String = ""
+    var checkLogin = false
+
+    private var queue: RequestQueue? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         getSupportActionBar()?.hide()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        queue =  Volley.newRequestQueue(this)
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE)
 
         setTitle("User Login")
@@ -54,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnMasuk.setOnClickListener(View.OnClickListener {
-            var checkLogin = false
+
             var username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
@@ -71,31 +87,77 @@ class MainActivity : AppCompatActivity() {
             if(username == "admin" && password == "admin")
                 checkLogin = true
 
-            val user = db.userDao().getUser(username, password)
-            if(user != null){
-
-                checkLogin = true
-                val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
-                editor.putString("id",user.id.toString())
-                editor.apply()
-            }
 
             if(intent.getBundleExtra("register")!=null){
                 if(username== tUsername && password == tPassword)
                     checkLogin= true
             }
 
-            if(!checkLogin)
-                return@OnClickListener
 
 
-            val moveHome = Intent(this, Menu::class.java)
-            startActivity(moveHome)
+            loginUser()
+
         })
 
         btnDaftar.setOnClickListener{
             val moveRegis = Intent(this, Register::class.java)
             startActivity(moveRegis)
         }
+    }
+
+    private fun loginUser(){
+        //srReservasi!!.isRefreshing = true
+        val stringRequest: StringRequest = object :
+            StringRequest(Method.GET, ProfilApi.GET_ALL_URL, Response.Listener { response ->
+                val gson = Gson()
+                val jsonObject = JSONObject(response)
+                val jsonData = jsonObject.getJSONArray("data")
+                val allProfil : Array<Profil> = gson.fromJson(jsonData.toString(),Array<Profil>::class.java)
+
+                for (i in allProfil){
+                    if(i.username == inputUsername.getEditText()?.getText().toString() && i.password == inputPassword.getEditText()?.getText().toString()){
+                        val editor : SharedPreferences.Editor = sharedPreferences!!.edit()
+                        editor.putString("id",i.id.toString())
+                        editor.apply()
+                        println(i.id.toString())
+                        checkLogin = true
+                        break;
+
+                    }
+
+                }
+
+                if(checkLogin == true){
+
+                    val moveHome = Intent(this, Menu::class.java)
+                    startActivity(moveHome)
+                }else{
+                    inputUsername.setError("Username Salah")
+                    inputPassword.setError("Password Salah")
+                }
+
+            }, Response.ErrorListener { error ->
+                //srReservasi!!.isRefreshing = false
+                try{
+                    val responseBody =
+                        String(error.networkResponse.data, StandardCharsets.UTF_8)
+                    val errors = JSONObject(responseBody)
+                    Toast.makeText(
+                        this,
+                        errors.getString("message"),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }catch (e: Exception){
+                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                }
+            }){
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val headers = HashMap<String, String>()
+                headers["Accept"] = "application/json"
+                return headers
+            }
+        }
+        queue!!.add(stringRequest)
     }
 }
