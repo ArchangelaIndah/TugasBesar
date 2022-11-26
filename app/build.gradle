@@ -74,4 +74,13 @@ dependencies {
 
     // Gson
     implementation 'com.google.code.gson:gson:2.8.8'
+
+    //navbar
+    implementation 'nl.joery.animatedbottombar:library:1.1.0'
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
+
+    implementation 'io.github.shashank02051997:FancyToast:2.0.2'
+
 }

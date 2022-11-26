@@ -21,6 +21,7 @@ import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -142,13 +143,20 @@ class MainActivity : AppCompatActivity() {
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, e.message,
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)

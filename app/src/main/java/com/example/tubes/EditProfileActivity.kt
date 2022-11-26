@@ -25,6 +25,7 @@ import com.example.tubes.room.User
 import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_edit_reservasi.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
@@ -88,11 +89,15 @@ class EditProfileActivity : AppCompatActivity() {
 
             if (checkSave == true) {
                 editProfil(id!!.toInt())
-                Toast.makeText(
-                    applicationContext,
+//                Toast.makeText(
+//                    applicationContext,
+//                    "Your Profile Changed",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+                FancyToast.makeText(applicationContext,
                     "Your Profile Changed",
-                    Toast.LENGTH_SHORT
-                ).show()
+                    FancyToast.LENGTH_LONG,
+                    FancyToast.SUCCESS,true).show()
                 val moveMenu = Intent(this, Menu::class.java)
                 startActivity(moveMenu)
             } else {
@@ -117,22 +122,35 @@ class EditProfileActivity : AppCompatActivity() {
                 password = profil[0].password
 
                 if(!profil.isEmpty())
-                    Toast.makeText(this, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                    FancyToast.makeText(this, "Data Berhasil Diambil!",
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.SUCCESS,true).show()
+                    //Toast.makeText(this, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
                 else
-                    Toast.makeText(this, "Data Kosong!", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, "Data Kosong!",
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, "Data Kosong!", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, e.message,
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)
@@ -150,18 +168,25 @@ class EditProfileActivity : AppCompatActivity() {
         val stringRequest: StringRequest = object :
             StringRequest(Method.PUT, ProfilApi.UPDATE_URL+id , Response.Listener { response ->
                 finish()
-                Toast.makeText(this, "Berhsasil Edit Data", Toast.LENGTH_SHORT ).show()
+                FancyToast.makeText(this, "Berhsasil Edit Data",
+                    FancyToast.LENGTH_LONG,
+                    FancyToast.SUCCESS,true).show()
+                //Toast.makeText(this, "Berhsasil Edit Data", Toast.LENGTH_SHORT ).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
                     Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }

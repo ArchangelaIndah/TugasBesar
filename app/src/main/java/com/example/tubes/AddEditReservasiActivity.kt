@@ -14,6 +14,7 @@ import com.android.volley.toolbox.Volley
 import com.example.tubes.api.ReservasiApi
 import com.example.tubes.models.Reservasi
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -83,20 +84,26 @@ class AddEditReservasiActivity : AppCompatActivity() {
                 etJenisKendaraan!!.setText(reservasi.jeniskendaraan)
                 etKeluhan!!.setText(reservasi.keluhan)
 
-                Toast.makeText(this@AddEditReservasiActivity, "Data berhasil diambil", Toast.LENGTH_SHORT).show()
+
+
+                FancyToast.makeText(this@AddEditReservasiActivity, "Data berhasil diambil",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
+                //Toast.makeText(this@AddEditReservasiActivity, "Data berhasil diambil", Toast.LENGTH_SHORT).show()
                 setLoading(false)
             },  Response.ErrorListener { error ->
                 setLoading(false)
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this@AddEditReservasiActivity,
-                        errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@AddEditReservasiActivity,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+
+                    FancyToast.makeText(this@AddEditReservasiActivity,errors.getString("message"),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditReservasiActivity, e.message,FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                    //Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
                 @Throws(AuthFailureError::class)
@@ -124,7 +131,8 @@ class AddEditReservasiActivity : AppCompatActivity() {
                 val reservasi = gson.fromJson(response, Reservasi::class.java)
 
                 if(reservasi!=null)
-                    Toast.makeText(this@AddEditReservasiActivity, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditReservasiActivity, "Data Berhasil Ditambahkan",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
+                    //Toast.makeText(this@AddEditReservasiActivity, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
 
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
@@ -136,13 +144,15 @@ class AddEditReservasiActivity : AppCompatActivity() {
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this@AddEditReservasiActivity,
-                        errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@AddEditReservasiActivity,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this@AddEditReservasiActivity,errors.getString("message"),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
                 }catch (e:Exception){
-                    Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditReservasiActivity, e.message,FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                    //Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
                 }
             }) {
                 @Throws(AuthFailureError::class)
@@ -185,7 +195,8 @@ class AddEditReservasiActivity : AppCompatActivity() {
                 val reservasi = gson.fromJson(response, Reservasi::class.java)
 
                 if(reservasi != null)
-                    Toast.makeText(this@AddEditReservasiActivity, "Data Berhasil Diupdate", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditReservasiActivity, "Data Berhasil Diupdate",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
+                    //Toast.makeText(this@AddEditReservasiActivity, "Data Berhasil Diupdate", Toast.LENGTH_SHORT).show()
                 val returnIntent = Intent()
                 setResult(RESULT_OK, returnIntent)
                 finish()
@@ -196,13 +207,16 @@ class AddEditReservasiActivity : AppCompatActivity() {
                 try{
                     val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this@AddEditReservasiActivity,
-                        errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@AddEditReservasiActivity,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+
+                    FancyToast.makeText(this@AddEditReservasiActivity, errors.getString("message"),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
                 }catch (e:Exception){
-                    Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@AddEditReservasiActivity, e.message,FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                    //Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)

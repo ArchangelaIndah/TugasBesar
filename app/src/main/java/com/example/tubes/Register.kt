@@ -30,6 +30,7 @@ import com.example.tubes.room.UserDB
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -123,7 +124,8 @@ class Register : AppCompatActivity() {
                         val profil = gson.fromJson(response, Profil::class.java)
 
                         if(profil!=null)
-                            Toast.makeText(this@Register, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(this@Register, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
+                            FancyToast.makeText(this@Register, "Data Berhasil Ditambahkan",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
 
                         val moveHome = Intent(this@Register, MainActivity::class.java)
 
@@ -132,7 +134,12 @@ class Register : AppCompatActivity() {
                         moveHome.putExtra("register", mBundle)
                         createNotificationChannel()
                         sendNotification()
-                        Toast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered", Toast.LENGTH_SHORT).show()
+
+
+
+                        FancyToast.makeText(applicationContext, "Berhasil Diregistrasi!!!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
+                        //FancyToast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true);
+                        //Toast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered", Toast.LENGTH_SHORT).show()
                         startActivity(moveHome)
 
                         val returnIntent = Intent()
@@ -145,13 +152,17 @@ class Register : AppCompatActivity() {
                         try{
                             val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
                             val errors = JSONObject(responseBody)
-                            Toast.makeText(
-                                this@Register,
+//                            Toast.makeText(
+//                                this@Register,
+//                                errors.getString("message"),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+                            FancyToast.makeText(this@Register,
                                 errors.getString("message"),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                                FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
                         }catch (e:Exception){
-                            Toast.makeText(this@Register, e.message, Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(this@Register, e.message, Toast.LENGTH_SHORT).show()
+                            FancyToast.makeText(this@Register, e.message,FancyToast.LENGTH_LONG,FancyToast.INFO,true).show()
                         }
                     }) {
                         @Throws(AuthFailureError::class)
@@ -225,7 +236,8 @@ class Register : AppCompatActivity() {
             .addAction(R.mipmap.ic_launcher, "Access Menu", actionIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
-        Toast.makeText(applicationContext, "Register with your new Account first", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(applicationContext, "Register with your new Account first", Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(applicationContext, "Register with your new Account first", FancyToast.LENGTH_LONG, FancyToast.SUCCESS,true).show()
         with(NotificationManagerCompat.from(this)){
             notify(notificationId, builder.build())
         }

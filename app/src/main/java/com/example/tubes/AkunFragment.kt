@@ -24,6 +24,7 @@ import com.example.tubes.models.Profil
 import com.example.tubes.room.User
 import com.example.tubes.room.UserDB
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 import java.util.HashMap

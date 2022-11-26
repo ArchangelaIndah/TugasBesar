@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -82,11 +83,15 @@ class HomeFragment : Fragment(){
                 e.printStackTrace()
             }
         } catch (ignored: IOException){
-            Toast.makeText(
-                requireActivity(),
+            FancyToast.makeText(requireActivity(),
                 "Oops, ada yang tidak beres. Coba ulangi beberapa saat lagi.",
-                Toast.LENGTH_SHORT
-            ).show()
+                FancyToast.LENGTH_SHORT,
+                FancyToast.ERROR,true).show()
+//            Toast.makeText(
+//                requireActivity(),
+//                "Oops, ada yang tidak beres. Coba ulangi beberapa saat lagi.",
+//                Toast.LENGTH_SHORT
+//            ).show()
         }
     }
 

@@ -26,6 +26,7 @@ import kotlinx.coroutines.launch
 import com.example.tubes.databinding.ActivityEditReservasiBinding
 import com.example.tubes.models.Reservasi
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -49,8 +50,12 @@ class EditReservasiActivity : AppCompatActivity() {
         setupView()
         setupListener()
 
-        Toast.makeText(this,
-            reservasiId.toString(), Toast.LENGTH_SHORT).show()
+        FancyToast.makeText(this,
+            reservasiId.toString(),
+            FancyToast.LENGTH_LONG,
+            FancyToast.SUCCESS,true).show()
+//        Toast.makeText(this,
+//            reservasiId.toString(), Toast.LENGTH_SHORT).show()
 
 
     }
@@ -136,13 +141,20 @@ class EditReservasiActivity : AppCompatActivity() {
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, e.message,
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)
@@ -169,20 +181,30 @@ class EditReservasiActivity : AppCompatActivity() {
         val stringRequest: StringRequest = object :
             StringRequest(Method.PUT, ReservasiApi.UPDATE_URL+id , Response.Listener { response ->
                 finish()
-                Toast.makeText(this, "Berhsasil Edit Data", Toast.LENGTH_SHORT ).show()
+                FancyToast.makeText(this, "Berhsasil Edit Data",
+                    FancyToast.LENGTH_LONG,
+                    FancyToast.SUCCESS,true).show()
+                //Toast.makeText(this, "Berhsasil Edit Data", Toast.LENGTH_SHORT ).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, e.message,
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)
@@ -219,22 +241,35 @@ class EditReservasiActivity : AppCompatActivity() {
                 edit_keluhan.setText(reservasi[0].keluhan)
 
                 if(!reservasi.isEmpty())
-                    Toast.makeText(this, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                    FancyToast.makeText(this, "Data Berhasil Diambil!",
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
                 else
-                    Toast.makeText(this, "Data Kosong!", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, "Data Kosong!",
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, "Data Kosong!", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this,
+//                    Toast.makeText(
+//                        this,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this, e.message,
+                        FancyToast.LENGTH_LONG,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)

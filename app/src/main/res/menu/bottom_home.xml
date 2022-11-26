@@ -18,8 +18,4 @@
         android:id="@+id/itemAkun"
         android:icon="@drawable/ic_user_24"
         android:title="Account" />
-    <item
-        android:id="@+id/itemMahasiswa"
-        android:icon="@drawable/ic_user_24"
-        android:title="Mahasiswa" />
 </menu>

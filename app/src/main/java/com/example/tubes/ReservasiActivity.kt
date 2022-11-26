@@ -20,6 +20,7 @@ import com.example.tubes.room.Constant
 import com.example.tubes.room.Reservasi
 import com.example.tubes.room.ReservasiDB
 import com.google.gson.Gson
+import com.shashank.sony.fancytoastlib.FancyToast
 import kotlinx.android.synthetic.main.activity_reservasi.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -48,8 +49,11 @@ class ReservasiActivity : AppCompatActivity() {
         reservasiAdapter = ReservasiAdapter(arrayListOf(), object :
             ReservasiAdapter.OnAdapterListener{
             override fun onClick(reservasi: com.example.tubes.models.Reservasi) {
-                Toast.makeText(applicationContext, reservasi.nama,
-                    Toast.LENGTH_SHORT).show()
+//                Toast.makeText(applicationContext, reservasi.nama,
+//                    Toast.LENGTH_SHORT).show()
+                FancyToast.makeText(applicationContext, reservasi.nama,
+                    FancyToast.LENGTH_SHORT,
+                    FancyToast.SUCCESS,true).show()
                 intentEdit(reservasi.id!!, Constant.TYPE_READ)
             }
             override fun onUpdate(reservasi: com.example.tubes.models.Reservasi) {
@@ -119,22 +123,35 @@ class ReservasiActivity : AppCompatActivity() {
                 reservasiAdapter.setData( reservasi )
 
                 if(!reservasi.isEmpty())
-                    Toast.makeText(this@ReservasiActivity, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
+                    FancyToast.makeText(this@ReservasiActivity, "Data Berhasil Diambil!",
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.SUCCESS,true).show()
+                    //Toast.makeText(this@ReservasiActivity, "Data Berhasil Diambil!", Toast.LENGTH_SHORT ).show()
                 else
-                    Toast.makeText(this@ReservasiActivity, "Data Kosong!", Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@ReservasiActivity, "Data Kosong!",
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this@ReservasiActivity, "Data Kosong!", Toast.LENGTH_SHORT).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this@ReservasiActivity,
+//                    Toast.makeText(
+//                        this@ReservasiActivity,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this@ReservasiActivity,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this@ReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@ReservasiActivity, e.message,
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this@ReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)
@@ -151,21 +168,30 @@ class ReservasiActivity : AppCompatActivity() {
         //srReservasi!!.isRefreshing = true
         val stringRequest: StringRequest = object :
             StringRequest(Method.DELETE, ReservasiApi.DELETE_URL + id, Response.Listener { response ->
-                Toast.makeText(this@ReservasiActivity, "Data Berhasil Dihapus!", Toast.LENGTH_SHORT ).show()
-
+                //Toast.makeText(this@ReservasiActivity, "Data Berhasil Dihapus!", Toast.LENGTH_SHORT ).show()
+                FancyToast.makeText(this@ReservasiActivity, "Data Berhasil Dihapus!",
+                    FancyToast.LENGTH_SHORT,
+                    FancyToast.ERROR,true).show()
             }, Response.ErrorListener { error ->
                 //srReservasi!!.isRefreshing = false
                 try{
                     val responseBody =
                         String(error.networkResponse.data, StandardCharsets.UTF_8)
                     val errors = JSONObject(responseBody)
-                    Toast.makeText(
-                        this@ReservasiActivity,
+//                    Toast.makeText(
+//                        this@ReservasiActivity,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+                    FancyToast.makeText(this@ReservasiActivity,
                         errors.getString("message"),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
                 }catch (e: Exception){
-                    Toast.makeText(this@ReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
+                    FancyToast.makeText(this@ReservasiActivity, e.message,
+                        FancyToast.LENGTH_SHORT,
+                        FancyToast.ERROR,true).show()
+                    //Toast.makeText(this@ReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
                 }
             }){
             @Throws(AuthFailureError::class)
