@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.tubes.entity.dummy
 
 class RVDummyAdapter(private val data: Array<dummy>) : RecyclerView.Adapter<RVDummyAdapter.viewHolder>() {
@@ -30,7 +31,9 @@ class RVDummyAdapter(private val data: Array<dummy>) : RecyclerView.Adapter<RVDu
         val currentItem = data[position]
         holder.nama_barang.text = currentItem.namaBarang
         holder.harga.text = currentItem.harga.toString()
-        holder.barang.setImageResource(images[position])
+//        holder.barang.setImageResource(images[position])
+        Glide.with(holder.itemView.context)
+            .load(images[position]).into(holder.barang)
     }
 
     override fun getItemCount(): Int {

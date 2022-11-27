@@ -86,4 +86,14 @@ dependencies {
     //login
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.orhanobut:logger:2.2.0'
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+
+    //easy permision
+    implementation 'com.vmadalin:easypermissions-ktx:1.0.0'
+
+    def lifecycle_version = "2.5.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 }
