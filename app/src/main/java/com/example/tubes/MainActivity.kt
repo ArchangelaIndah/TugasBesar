@@ -23,7 +23,16 @@ import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.shashank.sony.fancytoastlib.FancyToast
 import org.json.JSONObject
+import java.lang.Math.log
 import java.nio.charset.StandardCharsets
+import java.util.logging.Logger
+import com.orhanobut.logger.AndroidLogAdapter
+import com.orhanobut.logger.FormatStrategy
+import com.orhanobut.logger.Logger.addLogAdapter
+import com.orhanobut.logger.Logger.log
+import com.orhanobut.logger.PrettyFormatStrategy
+import timber.log.Timber
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,6 +62,21 @@ class MainActivity : AppCompatActivity() {
         mainLayout = findViewById(R.id.mainLayout)
         val btnMasuk: Button = findViewById(R.id.btnMasuk)
         val btnDaftar: Button = findViewById(R.id.btnDaftar)
+
+        val formatStrategy: FormatStrategy = PrettyFormatStrategy.newBuilder()
+            .showThreadInfo(true)
+            .methodCount(1)
+            .methodOffset(5)
+            .build()
+        com.orhanobut.logger.Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
+
+        Timber.plant(object : Timber.DebugTree(){
+            override fun log(priority: Int, tag: String?, message: String, t: Throwable?){
+                com.orhanobut.logger.Logger.log(priority,"-$tag", message, t)
+            }
+        })
+
+        Timber.d("onCreate Inside MainActivity")
 
         if(intent.getBundleExtra("register")!=null){
             mBundle = intent.getBundleExtra("register")!!

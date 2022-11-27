@@ -83,4 +83,7 @@ dependencies {
 
     implementation 'io.github.shashank02051997:FancyToast:2.0.2'
 
+    //login
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+    implementation 'com.orhanobut:logger:2.2.0'
 }
