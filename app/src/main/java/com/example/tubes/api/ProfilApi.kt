@@ -2,7 +2,7 @@ package com.example.tubes.api
 
 class ProfilApi {
     companion object{
-        val BASE_URL ="http://192.168.100.77:8080/profil-apiserver/public/"
+        val BASE_URL ="http://192.168.38.249:8082/profil-apiserver/public/"
 
         val GET_ALL_URL = BASE_URL + "profil"
         val GET_BY_ID_URL = BASE_URL + "profil/"

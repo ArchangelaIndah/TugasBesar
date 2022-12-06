@@ -31,6 +31,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.shashank.sony.fancytoastlib.FancyToast
+import kotlinx.android.synthetic.main.activity_register.*
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 
@@ -75,56 +76,50 @@ class Register : AppCompatActivity() {
             val intent = Intent (this, MainActivity::class.java)
             val mBundle = Bundle()
 
-            if(username.isEmpty()) {
-                binding.inputLayoutUsername.setError("Username must be filled with text")
-                akses=false
-            }
+//            if(username.isEmpty()) {
+//                binding.inputLayoutUsername.setError("Username must be filled with text")
+//                akses=false
+//            }
+//
+//            if(password.isEmpty()) {
+//                binding.inputLayoutPassword.setError("Password must be filled with text")
+//                akses=false
+//            }
+//
+//            if(email.isEmpty()) {
+//                binding.inputLayoutEmail.setError("Email must be filled with text")
+//                akses=false
+//            }
+//
+//            if(tanggalLahir.isEmpty()) {
+//                binding.inputLayoutTanggalLahir.setError("Tanggal Lahir must be filled with text")
+//                akses=false
+//            }
+//
+//            if(nomorTelepon.isEmpty()) {
+//                binding.inputLayoutNomorTelepon.setError("No Telepon must be filled with text")
+//                akses=false
+//            }
+//
+//            if(binding.inputLayoutUsername.getEditText()?.getText()==null){
+//                binding.inputLayoutUsername.getEditText()?.setText("")
+//            }
+//
+//            if(binding.inputLayoutPassword.getEditText()?.getText()==null){
+//                binding.inputLayoutPassword.getEditText()?.setText("")
+//            }
+            binding.inputLayoutUsername.error = null
+            binding.inputLayoutPassword.error = null
+            binding.inputLayoutEmail.error = null
+            binding.inputLayoutTanggalLahir.error = null
+            binding.inputLayoutNomorTelepon.error = null
 
-            if(password.isEmpty()) {
-                binding.inputLayoutPassword.setError("Password must be filled with text")
-                akses=false
-            }
-
-            if(email.isEmpty()) {
-                binding.inputLayoutEmail.setError("Email must be filled with text")
-                akses=false
-            }
-
-            if(tanggalLahir.isEmpty()) {
-                binding.inputLayoutTanggalLahir.setError("Tanggal Lahir must be filled with text")
-                akses=false
-            }
-
-            if(nomorTelepon.isEmpty()) {
-                binding.inputLayoutNomorTelepon.setError("No Telepon must be filled with text")
-                akses=false
-            }
-
-            if(binding.inputLayoutUsername.getEditText()?.getText()==null){
-                binding.inputLayoutUsername.getEditText()?.setText("")
-            }
-
-            if(binding.inputLayoutPassword.getEditText()?.getText()==null){
-                binding.inputLayoutPassword.getEditText()?.setText("")
-            }
-
-
-            if(akses==true){
-
-                val profil = Profil(
-                    username,
-                    password,
-                    email,
-                    tanggalLahir,
-                    nomorTelepon
-                )
-                val stringRequest: StringRequest =
+            val stringRequest: StringRequest =
                     object: StringRequest(Method.POST, ProfilApi.ADD_URL, Response.Listener { response->
                         val gson = Gson()
                         val profil = gson.fromJson(response, Profil::class.java)
 
                         if(profil!=null)
-                            //Toast.makeText(this@Register, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
                             FancyToast.makeText(this@Register, "Data Berhasil Ditambahkan",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
 
                         val moveHome = Intent(this@Register, MainActivity::class.java)
@@ -135,11 +130,7 @@ class Register : AppCompatActivity() {
                         createNotificationChannel()
                         sendNotification()
 
-
-
                         FancyToast.makeText(applicationContext, "Berhasil Diregistrasi!!!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
-                        //FancyToast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true);
-                        //Toast.makeText(applicationContext, binding?.Username?.getText().toString() + " registered", Toast.LENGTH_SHORT).show()
                         startActivity(moveHome)
 
                         val returnIntent = Intent()
@@ -148,31 +139,62 @@ class Register : AppCompatActivity() {
 
 //                        setLoading(false)
                     }, Response.ErrorListener { error->
-//                        setLoading(false)
+
                         try{
                             val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                            val errors = JSONObject(responseBody)
-//                            Toast.makeText(
-//                                this@Register,
-//                                errors.getString("message"),
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-                            FancyToast.makeText(this@Register,
-                                errors.getString("message"),
-                                FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                            if(error.networkResponse.statusCode == 404){
+                                val gson = Gson()
+                                val jsonObject = JSONObject(responseBody)
+                                val jsonObject1 = jsonObject.getJSONObject("message")
+                                for(i in jsonObject1.keys()){
+                                    if(i == "username"){
+                                        if (jsonObject1[i] != ""){
+                                            binding.inputLayoutUsername.setError("Username must be filled with text")
+                                        }
+                                    }
+
+                                    if (i == "password"){
+                                        if (jsonObject1[i] != ""){
+                                            binding.inputLayoutPassword.setError("Password must be filled with text")
+                                        }
+                                    }
+
+                                    if (i == "email"){
+                                        if (jsonObject1[i] != "") {
+                                            binding.inputLayoutEmail.setError("Email must be filled with text")
+                                        }
+                                    }
+
+                                    if (i == "tanggallhr"){
+                                        if (jsonObject1[i] != ""){
+                                            binding.inputLayoutTanggalLahir.setError("Tanggal lahir must be filled with text")
+                                        }
+                                    }
+
+                                    if (i == "notelepon"){
+                                        if (jsonObject1[i] != ""){
+                                            binding.inputLayoutNomorTelepon.setError("No telepon must be filled with text")
+                                        }
+                                    }
+                                }
+
+                            }else {
+                                val errors = JSONObject(responseBody)
+                                FancyToast.makeText(this@Register,
+                                    errors.getString("message"),
+                                    FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                            }
                         }catch (e:Exception){
-                            //Toast.makeText(this@Register, e.message, Toast.LENGTH_SHORT).show()
                             FancyToast.makeText(this@Register, e.message,FancyToast.LENGTH_LONG,FancyToast.INFO,true).show()
                         }
-                    }) {
+                    })
+                    {
                         @Throws(AuthFailureError::class)
                         override fun getHeaders(): MutableMap<String, String> {
                             val headers = HashMap<String, String>()
                             headers["Accept"] = "application/json"
                             return headers
-
                         }
-
                         override fun getParams(): Map<String, String> {
                             val params = HashMap<String, String>()
                             params["username"] = binding.inputLayoutUsername.getEditText()?.getText().toString()
@@ -184,14 +206,7 @@ class Register : AppCompatActivity() {
                         }
 
                     }
-                // Menambahkan request ke request queue
                 queue!!.add(stringRequest)
-
-
-//                db.userDao().addUser(User(0,username,email,tanggalLahir,nomorTelepon,password))
-//                println(db.userDao().getUsers())
-
-            }
 
         })
     }
