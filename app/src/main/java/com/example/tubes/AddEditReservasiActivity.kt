@@ -118,64 +118,77 @@ class AddEditReservasiActivity : AppCompatActivity() {
 
     private fun createReservasi(){
         setLoading(true)
+        if(etNama!!.text.toString().isEmpty()) {
+            Toast.makeText(this@AddEditReservasiActivity, "Nama tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+        }
+        else if(etNoPlat!!.text.toString().isEmpty()) {
+            Toast.makeText(this@AddEditReservasiActivity, "No Plat tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+        }
+        else if(etJenisKendaraan!!.text.toString().isEmpty()) {
+            Toast.makeText(this@AddEditReservasiActivity, "Jenis Kendaraan tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+        }
+        else if(etKeluhan!!.text.toString().isEmpty()) {
+            Toast.makeText(this@AddEditReservasiActivity, "Keluhan tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+        }else{
+            val reservasi = Reservasi(
+                etNama!!.text.toString(),
+                etNoPlat!!.text.toString(),
+                etJenisKendaraan!!.text.toString(),
+                etKeluhan!!.text.toString()
+            )
+            val stringRequest: StringRequest =
+                object: StringRequest(Method.POST, ReservasiApi.ADD_URL, Response.Listener { response->
+                    val gson = Gson()
+                    val reservasi = gson.fromJson(response, Reservasi::class.java)
 
-        val reservasi = Reservasi(
-            etNama!!.text.toString(),
-            etNoPlat!!.text.toString(),
-            etJenisKendaraan!!.text.toString(),
-            etKeluhan!!.text.toString()
-        )
-        val stringRequest: StringRequest =
-            object: StringRequest(Method.POST, ReservasiApi.ADD_URL, Response.Listener { response->
-                val gson = Gson()
-                val reservasi = gson.fromJson(response, Reservasi::class.java)
-
-                if(reservasi!=null)
-                    FancyToast.makeText(this@AddEditReservasiActivity, "Data Berhasil Ditambahkan",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
+                    if(reservasi!=null)
+                        FancyToast.makeText(this@AddEditReservasiActivity, "Data Berhasil Ditambahkan",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
                     //Toast.makeText(this@AddEditReservasiActivity, "Data Berhasil Ditambahkan", Toast.LENGTH_SHORT).show()
 
-                val returnIntent = Intent()
-                setResult(RESULT_OK, returnIntent)
-                finish()
+                    val returnIntent = Intent()
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
 
-                setLoading(false)
-            }, Response.ErrorListener { error->
-                setLoading(false)
-                try{
-                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
-                    val errors = JSONObject(responseBody)
-//                    Toast.makeText(
-//                        this@AddEditReservasiActivity,
-//                        errors.getString("message"),
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-                    FancyToast.makeText(this@AddEditReservasiActivity,errors.getString("message"),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
-                }catch (e:Exception){
-                    FancyToast.makeText(this@AddEditReservasiActivity, e.message,FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
-                    //Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
-                }
-            }) {
-                @Throws(AuthFailureError::class)
-                override fun getHeaders(): MutableMap<String, String> {
-                    val headers = HashMap<String, String>()
-                    headers["Accept"] = "application/json"
-                    return headers
+                    setLoading(false)
+                }, Response.ErrorListener { error->
+                    setLoading(false)
+                    try{
+                        val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+                        val errors = JSONObject(responseBody)
+                        //                    Toast.makeText(
+                        //                        this@AddEditReservasiActivity,
+                        //                        errors.getString("message"),
+                        //                        Toast.LENGTH_SHORT
+                        //                    ).show()
+                        FancyToast.makeText(this@AddEditReservasiActivity,errors.getString("message"),FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                    }catch (e:Exception){
+                        FancyToast.makeText(this@AddEditReservasiActivity, e.message,FancyToast.LENGTH_LONG,FancyToast.ERROR,true).show()
+                        //Toast.makeText(this@AddEditReservasiActivity, e.message, Toast.LENGTH_SHORT).show()
+                    }
+                }) {
+                    @Throws(AuthFailureError::class)
+                    override fun getHeaders(): MutableMap<String, String> {
+                        val headers = HashMap<String, String>()
+                        headers["Accept"] = "application/json"
+                        return headers
 
-                }
+                    }
 
-                @Throws(AuthFailureError::class)
-                override fun getBody(): ByteArray {
-                    val gson = Gson()
-                    val requestBody = gson.toJson(reservasi)
-                    return requestBody.toByteArray(StandardCharsets.UTF_8)
-                }
+                    @Throws(AuthFailureError::class)
+                    override fun getBody(): ByteArray {
+                        val gson = Gson()
+                        val requestBody = gson.toJson(reservasi)
+                        return requestBody.toByteArray(StandardCharsets.UTF_8)
+                    }
 
-                override fun getBodyContentType(): String {
-                    return "application/json"
+                    override fun getBodyContentType(): String {
+                        return "application/json"
+                    }
                 }
-            }
-        // Menambahkan request ke request queue
-        queue!!.add(stringRequest)
+            // Menambahkan request ke request queue
+            queue!!.add(stringRequest)
+        }
+        setLoading(false)
     }
 
     private fun updateReservasi(id: Long){
