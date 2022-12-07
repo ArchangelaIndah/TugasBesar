@@ -180,7 +180,6 @@ class AddEditReservasiActivityTest {
             )
         )
         materialButton5.perform(click())
-        onView(isRoot()).perform(waitFor(3000))
     }
 
     private fun childAtPosition(
