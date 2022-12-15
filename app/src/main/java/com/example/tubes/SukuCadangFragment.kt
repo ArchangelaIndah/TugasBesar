@@ -1,9 +1,11 @@
 package com.example.tubes
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,5 +31,12 @@ class SukuCadangFragment : Fragment() {
         rvDummy.setHasFixedSize(true)
 
         rvDummy.adapter =adapter
+
+        val btnPesan: Button = view.findViewById(R.id.btnPesan)
+        btnPesan.setOnClickListener(View.OnClickListener {
+            val movePesanan = Intent(this@SukuCadangFragment.context, PemesananActivity::class.java)
+            startActivity(movePesanan)
+        })
+
     }
 }

@@ -4,12 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".SukuCadangFragment">
+    tools:context=".SukuCadangFragment"
+    android:background="#E8D1C5">
+        <Button
+            android:id="@+id/btnPesan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PEMESANAN"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#B8926A"
+
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_sukucadang"
+            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/rv_item_sukucadang" />
+
 
 </FrameLayout>

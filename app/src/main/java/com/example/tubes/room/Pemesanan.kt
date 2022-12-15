@@ -3,11 +3,10 @@ package com.example.tubes.room
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 @Entity
-data class Reservasi (
+data class Pemesanan (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val nama: String,
-    val noplat: String,
-    val jeniskendaraan: String,
-    val keluhan: String
+    val namaBarang: String,
+    val jumlah: String,
+    val alamatBengkel: String,
 )
