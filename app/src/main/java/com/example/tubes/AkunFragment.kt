@@ -58,6 +58,7 @@ class AkunFragment  : Fragment() {
         emailTxt =  view.findViewById(R.id.email)
         val btnEdit : Button = view.findViewById(R.id.btnEdit)
         val btnLogout: Button = view.findViewById(R.id.btnLogout)
+        val btnReview: Button = view.findViewById(R.id.btnReview)
         val id = sharedPreferences?.getString("id", "")
         queue =  Volley.newRequestQueue(requireActivity())
 
@@ -72,6 +73,11 @@ class AkunFragment  : Fragment() {
         btnLogout.setOnClickListener {
             val moveToLogin = Intent(this@AkunFragment.context, MainActivity::class.java)
             startActivity(moveToLogin)
+        }
+
+        btnReview.setOnClickListener {
+            val moveToReview = Intent(this@AkunFragment.context, ReviewActivity::class.java)
+            startActivity(moveToReview)
         }
 
         val btnCam: ImageButton = view.findViewById(R.id.imageCam)
