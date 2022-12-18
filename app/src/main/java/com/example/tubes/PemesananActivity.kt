@@ -163,6 +163,7 @@ class PemesananActivity : AppCompatActivity() {
         val stringRequest: StringRequest = object :
             StringRequest(Method.DELETE, PemesananApi.DELETE_URL + id, Response.Listener { response ->
                 //Toast.makeText(this@ReservasiActivity, "Data Berhasil Dihapus!", Toast.LENGTH_SHORT ).show()
+                allPemesanan()
                 FancyToast.makeText(this@PemesananActivity, "Data Berhasil Dihapus!",
                     FancyToast.LENGTH_SHORT,
                     FancyToast.ERROR,true).show()

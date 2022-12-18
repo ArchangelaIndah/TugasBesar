@@ -22,6 +22,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.awesomedialog.*
 import com.example.tubes.api.ProfilApi
 import com.example.tubes.databinding.ActivityRegisterBinding
 import com.example.tubes.models.Profil
@@ -76,38 +77,6 @@ class Register : AppCompatActivity() {
             val intent = Intent (this, MainActivity::class.java)
             val mBundle = Bundle()
 
-//            if(username.isEmpty()) {
-//                binding.inputLayoutUsername.setError("Username must be filled with text")
-//                akses=false
-//            }
-//
-//            if(password.isEmpty()) {
-//                binding.inputLayoutPassword.setError("Password must be filled with text")
-//                akses=false
-//            }
-//
-//            if(email.isEmpty()) {
-//                binding.inputLayoutEmail.setError("Email must be filled with text")
-//                akses=false
-//            }
-//
-//            if(tanggalLahir.isEmpty()) {
-//                binding.inputLayoutTanggalLahir.setError("Tanggal Lahir must be filled with text")
-//                akses=false
-//            }
-//
-//            if(nomorTelepon.isEmpty()) {
-//                binding.inputLayoutNomorTelepon.setError("No Telepon must be filled with text")
-//                akses=false
-//            }
-//
-//            if(binding.inputLayoutUsername.getEditText()?.getText()==null){
-//                binding.inputLayoutUsername.getEditText()?.setText("")
-//            }
-//
-//            if(binding.inputLayoutPassword.getEditText()?.getText()==null){
-//                binding.inputLayoutPassword.getEditText()?.setText("")
-//            }
             binding.inputLayoutUsername.error = null
             binding.inputLayoutPassword.error = null
             binding.inputLayoutEmail.error = null
@@ -119,23 +88,31 @@ class Register : AppCompatActivity() {
                         val gson = Gson()
                         val profil = gson.fromJson(response, Profil::class.java)
 
-                        if(profil!=null)
-                            FancyToast.makeText(this@Register, "Data Berhasil Ditambahkan",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
+                        if(profil!=null) {
 
-                        val moveHome = Intent(this@Register, MainActivity::class.java)
 
-                        mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())
-                        mBundle.putString("Password",binding.inputLayoutPassword.getEditText()?.getText().toString())
-                        moveHome.putExtra("register", mBundle)
-                        createNotificationChannel()
-                        sendNotification()
+                            AwesomeDialog.build(this)
+                                .title("Registrasi Berhasil")
+                                .body("Silahkan Login Ngab")
+                                .icon(R.drawable.ic_baseline_check_circle_24)
+                                .onPositive("Lanjut Login") {
+                                    val moveHome = Intent(this@Register, MainActivity::class.java)
 
-                        FancyToast.makeText(applicationContext, "Berhasil Diregistrasi!!!",FancyToast.LENGTH_LONG,FancyToast.SUCCESS,true).show()
-                        startActivity(moveHome)
+                                    mBundle.putString("Username",binding.inputLayoutUsername.getEditText()?.getText().toString())
+                                    mBundle.putString("Password",binding.inputLayoutPassword.getEditText()?.getText().toString())
+                                    moveHome.putExtra("register", mBundle)
+                                    createNotificationChannel()
+                                    sendNotification()
 
-                        val returnIntent = Intent()
-                        setResult(RESULT_OK, returnIntent)
-                        finish()
+                                    startActivity(moveHome)
+
+                                    val returnIntent = Intent()
+                                    setResult(RESULT_OK, returnIntent)
+                                    finish()
+                                }
+                        }
+
+
 
 //                        setLoading(false)
                     }, Response.ErrorListener { error->
@@ -252,7 +229,7 @@ class Register : AppCompatActivity() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         //Toast.makeText(applicationContext, "Register with your new Account first", Toast.LENGTH_SHORT).show()
-        FancyToast.makeText(applicationContext, "Register with your new Account first", FancyToast.LENGTH_LONG, FancyToast.SUCCESS,true).show()
+        //FancyToast.makeText(applicationContext, "Register with your new Account first", FancyToast.LENGTH_LONG, FancyToast.SUCCESS,true).show()
         with(NotificationManagerCompat.from(this)){
             notify(notificationId, builder.build())
         }
